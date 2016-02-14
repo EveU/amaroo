@@ -27,6 +27,16 @@ describe('Flights', function(){
     assert.equal("Canberra", flights.trips[0].arrival);
     assert.equal(212, flights.trips[0].price);
   });
+  it('should be able to return a list of flights on specified date', function(){
+      var flights = new Flights();
+      var trips = sampleData.flights;
+
+      for(flight of trips){
+        flights.addTrip(flight);
+      }
+      flights.onDate('27-03-2016 T10:00:00');
+      assert.equal(293, flights.onDateTrips[0].price);
+  });
 });
 
 // describe('Search', function(){

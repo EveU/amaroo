@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 var Flights = function(){
   this.trips = [];
+  this.onDateTrips = [];
 }
 
 Flights.prototype = {
@@ -10,6 +11,9 @@ Flights.prototype = {
   },
   orderByPrice: function(){
     this.trips = _.orderBy(this.trips, ['price'], ['asc']);
+  },
+  onDate: function(date){
+    this.onDateTrips = _.filter(this.trips, ['departing', date]);
   }
 };
 
