@@ -71,11 +71,25 @@
 	window.onload = function(){
 	  console.log('loaded app');
 	  console.log('sampleData', sampleData.hotels);
+	  var button = document.getElementById('searchButton');
+	
+	  button.onclick = function(){
+	    console.log("I was clicked and I liked it");
+	    var leaveFromInput = document.getElementById('leavingFrom');
+	    var goingToInput = document.getElementById('goingTo');
+	    var departureDate = document.getElementById('departureDate');
+	    console.log(leaveFromInput.value);
+	    console.log(goingTo.value);
+	    console.log(departureDate.value);
+	
+	  }
 	
 	  displayFlights();
 	  displayHotels();
 	
 	};
+	
+	
 	
 	// Number(flight.price).toFixed(2)
 
