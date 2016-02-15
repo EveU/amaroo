@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var sampleData = require('./../sample');
 
 var BookingOptions = function(){
   this.bookingType = "";
@@ -46,7 +45,7 @@ BookingOptions.prototype = {
       flightsDiv.appendChild(flightsDisplay);
     }
   },
-  
+
   displayHotels: function(object){
     for(hotel of object){
       var hotelsDiv = document.getElementById("allHotels");

@@ -239,7 +239,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(3);
-	var sampleData = __webpack_require__(1);
 	
 	var BookingOptions = function(){
 	  this.bookingType = "";
@@ -286,7 +285,7 @@
 	      flightsDiv.appendChild(flightsDisplay);
 	    }
 	  },
-	  
+	
 	  displayHotels: function(object){
 	    for(hotel of object){
 	      var hotelsDiv = document.getElementById("allHotels");
