@@ -39,16 +39,25 @@ BookingOptions.prototype = {
     this.hotels = _.orderBy(this.hotels, ['pricePerPerson'], ['asc']);
   },
 
+  // matchingFlights: function(date){
+  //   var matchingFlights = _.filter(this.flights, ['date', date]);
+  //   return matchingFlights;
+  // },
+
   matchingFlights: function(date){
-    var matchingFlights = _.filter(this.flights, ['date', date]);
-    return matchingFlights;
+    for(flight of sampleData.flights){
+      if(flight.departing.substring(0,10) === date){
+        this.flights.push(flight);
+      }
+    }
+    return this.flights;
   },
 
-  matchingHotels: function(city){
-    var matchingHotels = _.filter(this.hotels, ['address.city', city]);
-    matchingHotels = _.orderBy(matchingHotels, ['pricePerPerson'], ['asc']);
-    return matchingHotels;
-  },
+  // matchingHotels: function(city){
+  //   var matchingHotels = _.filter(this.hotels, ['address.city', city]);
+  //   matchingHotels = _.orderBy(matchingHotels, ['pricePerPerson'], ['asc']);
+  //   return matchingHotels;
+  // },
 
   displayFlights: function(object){
     for(flight of object){

@@ -5,19 +5,22 @@ window.onload = function(){
   console.log('loaded app');
   var booking = new BookingOptions();
 
-  booking.populateFlights(sampleData);
-  booking.populateHotels(sampleData);
+  booking.displayFlights(sampleData.flights);
+  booking.displayHotels(sampleData.hotels);
 
-  var date = "28-03-2016";
+  // booking.populateFlights(sampleData);
+  // booking.populateHotels(sampleData);
+
+  // var date = "28-03-2016";
   
-  var matchingFlights = booking.matchingFlights(date);
-  var matchingHotels = booking.matchingHotels("Canberra");
+  // var matchingFlights = booking.matchingFlights(date);
+  // var matchingHotels = booking.matchingHotels("Canberra");
 
   // booking.displayFlights(booking.flights);
   // booking.displayHotels(booking.hotels);
 
-  booking.displayFlights(matchingFlights);
-  booking.displayHotels(matchingHotels);
+  // booking.displayFlights(matchingFlights);
+  // booking.displayHotels(matchingHotels);
 
   var button = document.getElementById('searchButton');
 
@@ -38,6 +41,9 @@ window.onload = function(){
     }
     
     console.log(searchInputReturns);
+
+    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
+    console.log(matchedFlights);
 
   }
 

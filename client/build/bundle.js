@@ -51,19 +51,22 @@
 	  console.log('loaded app');
 	  var booking = new BookingOptions();
 	
-	  booking.populateFlights(sampleData);
-	  booking.populateHotels(sampleData);
+	  booking.displayFlights(sampleData.flights);
+	  booking.displayHotels(sampleData.hotels);
 	
-	  var date = "28-03-2016";
+	  // booking.populateFlights(sampleData);
+	  // booking.populateHotels(sampleData);
+	
+	  // var date = "28-03-2016";
 	  
-	  var matchingFlights = booking.matchingFlights(date);
-	  var matchingHotels = booking.matchingHotels("Canberra");
+	  // var matchingFlights = booking.matchingFlights(date);
+	  // var matchingHotels = booking.matchingHotels("Canberra");
 	
 	  // booking.displayFlights(booking.flights);
 	  // booking.displayHotels(booking.hotels);
 	
-	  booking.displayFlights(matchingFlights);
-	  booking.displayHotels(matchingHotels);
+	  // booking.displayFlights(matchingFlights);
+	  // booking.displayHotels(matchingHotels);
 	
 	  var button = document.getElementById('searchButton');
 	
@@ -84,6 +87,9 @@
 	    }
 	    
 	    console.log(searchInputReturns);
+	
+	    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
+	    console.log(matchedFlights);
 	
 	  }
 	
@@ -296,16 +302,25 @@
 	    this.hotels = _.orderBy(this.hotels, ['pricePerPerson'], ['asc']);
 	  },
 	
+	  // matchingFlights: function(date){
+	  //   var matchingFlights = _.filter(this.flights, ['date', date]);
+	  //   return matchingFlights;
+	  // },
+	
 	  matchingFlights: function(date){
-	    var matchingFlights = _.filter(this.flights, ['date', date]);
-	    return matchingFlights;
+	    for(flight of sampleData.flights){
+	      if(flight.departing.substring(0,10) === date){
+	        this.flights.push(flight);
+	      }
+	    }
+	    return this.flights;
 	  },
 	
-	  matchingHotels: function(city){
-	    var matchingHotels = _.filter(this.hotels, ['address.city', city]);
-	    matchingHotels = _.orderBy(matchingHotels, ['pricePerPerson'], ['asc']);
-	    return matchingHotels;
-	  },
+	  // matchingHotels: function(city){
+	  //   var matchingHotels = _.filter(this.hotels, ['address.city', city]);
+	  //   matchingHotels = _.orderBy(matchingHotels, ['pricePerPerson'], ['asc']);
+	  //   return matchingHotels;
+	  // },
 	
 	  displayFlights: function(object){
 	    for(flight of object){
