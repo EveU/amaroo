@@ -78,9 +78,18 @@
 	    var leaveFromInput = document.getElementById('leavingFrom');
 	    var goingToInput = document.getElementById('goingTo');
 	    var departureDate = document.getElementById('departureDate');
-	    console.log(leaveFromInput.value);
-	    console.log(goingTo.value);
-	    console.log(departureDate.value);
+	
+	    // console.log(leaveFromInput.value);
+	    // console.log(goingToInput.value);
+	    // console.log(departureDate.value);
+	
+	    var searchInputReturns = {
+	      homeCity: leavingFrom.value,
+	      destinationCity: goingToInput.value,
+	      outboundDate: departureDate.value
+	
+	    }
+	    console.log(searchInputReturns);
 	
 	  }
 	
