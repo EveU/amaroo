@@ -13,15 +13,15 @@ window.onload = function(){
     booking.addHotel(hotel);
   }
 
-  booking.matchingFlights('28-03-2016 T10:00:00');
-  booking.matchingHotels("Canberra");
+  var matchingFlights = booking.matchingFlights('28-03-2016 T10:00:00');
+  var matchingHotels = booking.matchingHotels("Canberra");
 
 
-  booking.displayFlights(booking.flights);
-  booking.displayHotels(booking.hotels);
-  
-  // booking.displayFlights(booking.flightsOnDate);
-  // booking.displayHotels(booking.hotelsInCity);
+  // booking.displayFlights(booking.flights);
+  // booking.displayHotels(booking.hotels);
+
+  booking.displayFlights(matchingFlights);
+  booking.displayHotels(matchingHotels);
 
 };
 

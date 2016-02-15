@@ -59,15 +59,15 @@
 	    booking.addHotel(hotel);
 	  }
 	
-	  booking.matchingFlights('28-03-2016 T10:00:00');
-	  booking.matchingHotels("Canberra");
+	  var matchingFlights = booking.matchingFlights('28-03-2016 T10:00:00');
+	  var matchingHotels = booking.matchingHotels("Canberra");
 	
 	
-	  booking.displayFlights(booking.flights);
-	  booking.displayHotels(booking.hotels);
-	  
-	  // booking.displayFlights(booking.flightsOnDate);
-	  // booking.displayHotels(booking.hotelsInCity);
+	  // booking.displayFlights(booking.flights);
+	  // booking.displayHotels(booking.hotels);
+	
+	  booking.displayFlights(matchingFlights);
+	  booking.displayHotels(matchingHotels);
 	
 	};
 	
@@ -244,32 +244,38 @@
 	var BookingOptions = function(){
 	  this.bookingType = "";
 	  this.flights = [];
-	  this.flightsOnDate = [];
-	
 	  this.hotels = [];
-	  this.hotelsInCity = [];
 	}
 	
 	BookingOptions.prototype = {
+	
 	  addFlight: function(flight){
 	    this.flights.push(flight);
 	  },
+	
 	  addHotel: function(hotel){
 	    this.hotels.push(hotel);
 	  },
+	
 	  orderFlightsByPrice: function(){
 	    this.flights = _.orderBy(this.flights, ['price'], ['asc']);
 	  },
+	
 	  orderHotelsByPrice: function(){
 	    this.hotels = _.orderBy(this.hotels, ['pricePerPerson'], ['asc']);
 	  },
+	
 	  matchingFlights: function(date){
-	    this.flightsOnDate = _.filter(this.flights, ['departing', date]);
+	    var matchingFlights = _.filter(this.flights, ['departing', date]);
+	    return matchingFlights;
 	  },
+	
 	  matchingHotels: function(city){
-	    this.hotelsInCity = _.filter(this.hotels, ['address.city', city]);
-	    this.hotelsInCity = _.orderBy(this.hotelsInCity, ['pricePerPerson'], ['asc']);
+	    var matchingHotels = _.filter(this.hotels, ['address.city', city]);
+	    matchingHotels = _.orderBy(matchingHotels, ['pricePerPerson'], ['asc']);
+	    return matchingHotels;
 	  },
+	
 	  displayFlights: function(object){
 	    for(flight of object){
 	      var flightsDiv = document.getElementById("allFlights");
@@ -280,6 +286,7 @@
 	      flightsDiv.appendChild(flightsDisplay);
 	    }
 	  },
+	  
 	  displayHotels: function(object){
 	    for(hotel of object){
 	      var hotelsDiv = document.getElementById("allHotels");
