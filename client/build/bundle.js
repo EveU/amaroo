@@ -49,17 +49,14 @@
 	
 	window.onload = function(){
 	  console.log('loaded app');
-	  console.log('sampleData', sampleData.hotels);
 	  var booking = new BookingOptions();
 	
-	  for(flight of sampleData.flights){
-	    booking.addFlight(flight);
-	  }
-	  for(hotel of sampleData.hotels){
-	    booking.addHotel(hotel);
-	  }
+	  booking.populateFlights(sampleData);
+	  booking.populateHotels(sampleData);
 	
-	  var matchingFlights = booking.matchingFlights('28-03-2016 T10:00:00');
+	  var date = "28-03-2016";
+	  
+	  var matchingFlights = booking.matchingFlights(date);
 	  var matchingHotels = booking.matchingHotels("Canberra");
 	
 	
@@ -239,6 +236,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(3);
+	var sampleData = __webpack_require__(1);
 	
 	var BookingOptions = function(){
 	  this.bookingType = "";
@@ -256,6 +254,20 @@
 	    this.hotels.push(hotel);
 	  },
 	
+	  populateFlights: function(sampleData){
+	    for(flight of sampleData.flights){
+	      flight.date = flight.departing.substring(0,10);
+	      flight.time = flight.departing.substring(12,20);
+	      this.addFlight(flight);
+	    }
+	  },
+	
+	  populateHotels: function(sampleData){
+	    for(hotel of sampleData.hotels){
+	      this.addHotel(hotel);
+	    }
+	  },
+	
 	  orderFlightsByPrice: function(){
 	    this.flights = _.orderBy(this.flights, ['price'], ['asc']);
 	  },
@@ -265,7 +277,7 @@
 	  },
 	
 	  matchingFlights: function(date){
-	    var matchingFlights = _.filter(this.flights, ['departing', date]);
+	    var matchingFlights = _.filter(this.flights, ['date', date]);
 	    return matchingFlights;
 	  },
 	

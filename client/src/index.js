@@ -3,17 +3,14 @@ var BookingOptions = require('./booking/BookingOptions');
 
 window.onload = function(){
   console.log('loaded app');
-  console.log('sampleData', sampleData.hotels);
   var booking = new BookingOptions();
 
-  for(flight of sampleData.flights){
-    booking.addFlight(flight);
-  }
-  for(hotel of sampleData.hotels){
-    booking.addHotel(hotel);
-  }
+  booking.populateFlights(sampleData);
+  booking.populateHotels(sampleData);
 
-  var matchingFlights = booking.matchingFlights('28-03-2016 T10:00:00');
+  var date = "28-03-2016";
+  
+  var matchingFlights = booking.matchingFlights(date);
   var matchingHotels = booking.matchingHotels("Canberra");
 
 
