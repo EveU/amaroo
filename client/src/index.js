@@ -16,7 +16,7 @@ var displayHotels = function(){
     var hotelsDiv = document.getElementById("allHotels");
 
     var hotelsDisplay = document.createElement("p");
-    hotelsDisplay.innerHTML = "<b>" + hotel.name + "</b><br>Price Per Person: " + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars + <hr>";
+    hotelsDisplay.innerHTML = "<b>" + hotel.name + "</b><br>Price Per Person: " + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
 
     hotelsDiv.appendChild(hotelsDisplay);
   }
