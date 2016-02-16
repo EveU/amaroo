@@ -1,5 +1,6 @@
 var sampleData = require('./sample');
 var BookingOptions = require('./booking/BookingOptions');
+var moment = require('moment');
 
 window.onload = function(){
   console.log('loaded app');
@@ -36,11 +37,16 @@ window.onload = function(){
     // console.log(departureDate.value);
 
     var correctDate = function(date){
-    var year = date.substring(0,4);
-    var month = date.substring(5,7);
-    var day = date.substring(8,10);
-    var correctedDate = day + "-" + month + "-" + year;
+    // var year = date.substring(0,4);
+    // var month = date.substring(5,7);
+    // var day = date.substring(8,10);
+    // var correctedDate = day + "-" + month + "-" + year;
+    // return correctedDate;
+
+    var correctedDate = moment(date, "YYYY MM DD");
+    var correctedDate = moment(correctedDate).format("DD" + "-" + "MM" +"-" + "YYYY");
     return correctedDate;
+
     }
 
     var searchInputReturns = {
@@ -52,11 +58,15 @@ window.onload = function(){
     
     console.log(searchInputReturns);
 
+    var lengthOfStay = booking.lengthOfStay(searchInputReturns.outboundDate, searchInputReturns.inboundDate);
+
     var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate, searchInputReturns.destinationCity);
+
     booking.displayFlights(booking.flights);
 
     var matchedHotels = booking.matchingHotels(searchInputReturns.destinationCity);
-    booking.displayHotels(booking.hotels);
+
+    booking.displayHotels(booking.hotels, lengthOfStay);
 
   }
 

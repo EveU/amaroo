@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var sampleData = require('./../sample');
+var moment = require('moment');
 
 var BookingOptions = function(){
   this.bookingType = "";
@@ -96,17 +97,32 @@ BookingOptions.prototype = {
 
   },
 
-  displayHotels: function(object){
+  displayHotels: function(object, lengthOfStay){
     var hotelsUl = document.getElementById("allHotels");
     hotelsUl.innerHTML = "";
 
     for(hotel of object){
 
       var hotelsDisplay = document.createElement("li");
-      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price Per Person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
+      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + this.priceOfStay(lengthOfStay, hotel.pricePerPerson) + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
 
       hotelsUl.appendChild(hotelsDisplay);
     }
+    // <br><small>Price based on one person staying for " + lengthOfStay + " nights.
+
+  },
+
+  lengthOfStay: function(checkIn, checkOut){
+    var checkIn = moment(checkIn, "DD MM YYYY");
+    var checkOut = moment(checkOut, "DD MM YYYY");
+    var lengthOfStay = checkOut.diff(checkIn, "days");
+    return lengthOfStay;
+  },
+
+  priceOfStay: function(nights, price){
+    var nights = nights;
+    var price = price;
+    return (nights * price);
   }
 };
 
