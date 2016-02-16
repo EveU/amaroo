@@ -17,19 +17,19 @@ BookingOptions.prototype = {
     this.hotels.push(hotel);
   },
 
-  populateFlights: function(sampleData){
-    for(flight of sampleData.flights){
-      flight.date = flight.departing.substring(0,10);
-      flight.time = flight.departing.substring(12,20);
-      this.addFlight(flight);
-    }
-  },
+  // populateFlights: function(sampleData){
+  //   for(flight of sampleData.flights){
+  //     flight.date = flight.departing.substring(0,10);
+  //     flight.time = flight.departing.substring(12,20);
+  //     this.addFlight(flight);
+  //   }
+  // },
 
-  populateHotels: function(sampleData){
-    for(hotel of sampleData.hotels){
-      this.addHotel(hotel);
-    }
-  },
+  // populateHotels: function(sampleData){
+  //   for(hotel of sampleData.hotels){
+  //     this.addHotel(hotel);
+  //   }
+  // },
 
   orderFlightsByPrice: function(){
     this.flights = _.orderBy(this.flights, ['price'], ['asc']);
@@ -47,10 +47,18 @@ BookingOptions.prototype = {
   matchingFlights: function(date){
     for(flight of sampleData.flights){
       if(flight.departing.substring(0,10) === date){
-        this.flights.push(flight);
+        this.addFlight(flight);
       }
     }
     return this.flights;
+  },
+
+  matchingHotels: function(city){
+    for(hotel of sampleData.hotels){
+      if(hotel.address.city === city){
+        this.addHotel(hotel);
+      }
+    }
   },
 
   // matchingHotels: function(city){

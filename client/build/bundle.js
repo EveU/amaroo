@@ -51,8 +51,8 @@
 	  console.log('loaded app');
 	  var booking = new BookingOptions();
 	
-	  booking.displayFlights(sampleData.flights);
-	  booking.displayHotels(sampleData.hotels);
+	  // booking.displayFlights(sampleData.flights);
+	  // booking.displayHotels(sampleData.hotels);
 	
 	  // booking.populateFlights(sampleData);
 	  // booking.populateHotels(sampleData);
@@ -89,7 +89,10 @@
 	    console.log(searchInputReturns);
 	
 	    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
-	    console.log(matchedFlights);
+	    booking.displayFlights(booking.flights);
+	
+	    var matchedHotels = booking.matchingHotels(searchInputReturns.destinationCity);
+	    booking.displayHotels(booking.hotels);
 	
 	  }
 	
@@ -105,14 +108,14 @@
 	    {
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Melbourne",
-	      "departing" : "28-03-2016 T08:00:00", 
+	      "departing" : "26-03-2016 T08:00:00", 
 	      "arriving"  : "29-03-2016 T10:00:00", 
 	      "price"     : 248
 	    },
 	    {
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Melbourne",
-	      "departing" : "28-03-2016 T12:00:00", 
+	      "departing" : "26-03-2016 T12:00:00", 
 	      "arriving"  : "29-03-2016 T13:00:00", 
 	      "price"     : 256
 	    },
@@ -280,19 +283,19 @@
 	    this.hotels.push(hotel);
 	  },
 	
-	  populateFlights: function(sampleData){
-	    for(flight of sampleData.flights){
-	      flight.date = flight.departing.substring(0,10);
-	      flight.time = flight.departing.substring(12,20);
-	      this.addFlight(flight);
-	    }
-	  },
+	  // populateFlights: function(sampleData){
+	  //   for(flight of sampleData.flights){
+	  //     flight.date = flight.departing.substring(0,10);
+	  //     flight.time = flight.departing.substring(12,20);
+	  //     this.addFlight(flight);
+	  //   }
+	  // },
 	
-	  populateHotels: function(sampleData){
-	    for(hotel of sampleData.hotels){
-	      this.addHotel(hotel);
-	    }
-	  },
+	  // populateHotels: function(sampleData){
+	  //   for(hotel of sampleData.hotels){
+	  //     this.addHotel(hotel);
+	  //   }
+	  // },
 	
 	  orderFlightsByPrice: function(){
 	    this.flights = _.orderBy(this.flights, ['price'], ['asc']);
@@ -310,10 +313,18 @@
 	  matchingFlights: function(date){
 	    for(flight of sampleData.flights){
 	      if(flight.departing.substring(0,10) === date){
-	        this.flights.push(flight);
+	        this.addFlight(flight);
 	      }
 	    }
 	    return this.flights;
+	  },
+	
+	  matchingHotels: function(city){
+	    for(hotel of sampleData.hotels){
+	      if(hotel.address.city === city){
+	        this.addHotel(hotel);
+	      }
+	    }
 	  },
 	
 	  // matchingHotels: function(city){

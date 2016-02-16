@@ -5,8 +5,8 @@ window.onload = function(){
   console.log('loaded app');
   var booking = new BookingOptions();
 
-  booking.displayFlights(sampleData.flights);
-  booking.displayHotels(sampleData.hotels);
+  // booking.displayFlights(sampleData.flights);
+  // booking.displayHotels(sampleData.hotels);
 
   // booking.populateFlights(sampleData);
   // booking.populateHotels(sampleData);
@@ -43,7 +43,10 @@ window.onload = function(){
     console.log(searchInputReturns);
 
     var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
-    console.log(matchedFlights);
+    booking.displayFlights(booking.flights);
+
+    var matchedHotels = booking.matchingHotels(searchInputReturns.destinationCity);
+    booking.displayHotels(booking.hotels);
 
   }
 
