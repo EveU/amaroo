@@ -62,8 +62,8 @@
 	  // var matchingFlights = booking.matchingFlights(date);
 	  // var matchingHotels = booking.matchingHotels("Canberra");
 	
-	  // booking.displayFlights(booking.flights);
-	  // booking.displayHotels(booking.hotels);
+	  booking.displayFlights(booking.flights);
+	  booking.displayHotels(booking.hotels);
 	
 	  // booking.displayFlights(matchingFlights);
 	  // booking.displayHotels(matchingHotels);
@@ -80,10 +80,15 @@
 	    // console.log(goingToInput.value);
 	    // console.log(departureDate.value);
 	
+	    var year = departureDate.value.substring(0,4);
+	    var month = departureDate.value.substring(5,7);
+	    var day = departureDate.value.substring(8,10);
+	    var correctedDate = day + "-" + month + "-" + year;
+	
 	    var searchInputReturns = {
 	      homeCity: leavingFrom.value,
 	      destinationCity: goingToInput.value,
-	      outboundDate: departureDate.value
+	      outboundDate: correctedDate
 	    }
 	    
 	    console.log(searchInputReturns);
@@ -311,6 +316,7 @@
 	  // },
 	
 	  matchingFlights: function(date){
+	    this.flights = [];
 	    for(flight of sampleData.flights){
 	      if(flight.departing.substring(0,10) === date){
 	        this.addFlight(flight);
@@ -320,6 +326,7 @@
 	  },
 	
 	  matchingHotels: function(city){
+	    this.hotels = [];
 	    for(hotel of sampleData.hotels){
 	      if(hotel.address.city === city){
 	        this.addHotel(hotel);
@@ -334,24 +341,28 @@
 	  // },
 	
 	  displayFlights: function(object){
-	    for(flight of object){
-	      var flightsDiv = document.getElementById("allFlights");
+	    var flightsUl = document.getElementById("allFlights");
+	    flightsUl.innerHTML = "";
 	
-	      var flightsDisplay = document.createElement("p")
+	    for(flight of object){
+	
+	      var flightsDisplay = document.createElement("li");
 	      flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.departing + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriving + "<br><br>Price: £" + flight.price + "<br><hr>";
 	
-	      flightsDiv.appendChild(flightsDisplay);
+	      flightsUl.appendChild(flightsDisplay);
 	    }
 	  },
 	
 	  displayHotels: function(object){
-	    for(hotel of object){
-	      var hotelsDiv = document.getElementById("allHotels");
+	    var hotelsUl = document.getElementById("allHotels");
+	    hotelsUl.innerHTML = "";
 	
-	      var hotelsDisplay = document.createElement("p");
+	    for(hotel of object){
+	
+	      var hotelsDisplay = document.createElement("li");
 	      hotelsDisplay.innerHTML = "<b>" + hotel.name + "</b><br>Price Per Person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
 	
-	      hotelsDiv.appendChild(hotelsDisplay);
+	      hotelsUl.appendChild(hotelsDisplay);
 	    }
 	  }
 	};

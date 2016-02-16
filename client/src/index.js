@@ -16,8 +16,8 @@ window.onload = function(){
   // var matchingFlights = booking.matchingFlights(date);
   // var matchingHotels = booking.matchingHotels("Canberra");
 
-  // booking.displayFlights(booking.flights);
-  // booking.displayHotels(booking.hotels);
+  booking.displayFlights(booking.flights);
+  booking.displayHotels(booking.hotels);
 
   // booking.displayFlights(matchingFlights);
   // booking.displayHotels(matchingHotels);
@@ -34,10 +34,15 @@ window.onload = function(){
     // console.log(goingToInput.value);
     // console.log(departureDate.value);
 
+    var year = departureDate.value.substring(0,4);
+    var month = departureDate.value.substring(5,7);
+    var day = departureDate.value.substring(8,10);
+    var correctedDate = day + "-" + month + "-" + year;
+
     var searchInputReturns = {
       homeCity: leavingFrom.value,
       destinationCity: goingToInput.value,
-      outboundDate: departureDate.value
+      outboundDate: correctedDate
     }
     
     console.log(searchInputReturns);
