@@ -7,32 +7,38 @@
 <body>
   <h1>Flightr</h1>
   <div>
-  	 <form>
+    <form>
       <label class= "formTitle">Leaving From
-      <input type="text" id="leavingFrom" size="40" placeholder="Airport or City">
-      <br>
-      <label class= "formTitle">Going To
-      <input type="text" id="goingTo" size="40" placeholder="Airport or City">
-      <br>	
-      <label class= "formTitle">Date
-      <input type="text" id="departureDate" size="40" placeholder="dd/mm/yy">
+        <input type="text" id="leavingFrom" size="40" placeholder="Airport or City">
+        <br>
+        <label class= "formTitle">Going To
+          <input type="text" id="goingTo" size="40" placeholder="Airport or City">
+          <br>	
+          <label class= "formTitle">Date
+          <input type="date" id="departureDate" size="40">
     <!--   <p class= "formTitle">Date
       <input type="text" id="Return Date" size="40" placeholder="dd/mm/yy">
       <br>
       <p class= "formTitle">Adults
       <input type="text" id="Adults" size="10" placeholder="1"> 
       <p class= "formTitle">Children
-      <input type="text" id="Children" size="10" placeholder="1"> -->
-      <input type="button" id="searchButton" value="Submit">
+        <input type="text" id="Children" size="10" placeholder="1"> -->
+        <input type="button" id="searchButton" value="Submit">
 
 
-    </form>	
-  </div>
-  <div id="allFlights">
-    <h3>Flights</h3>
-  </div>
-  <div id="allHotels">
-    <h3>Hotels</h3>
-  </div>
-</body>
-</html>
+      </form>	
+    </div>
+    <div>
+      <h3>Flights</h3>
+      <ul id="allFlights">
+
+      </ul>
+    </div>
+    <div>
+      <h3>Hotels</h3>
+      <ul id="allHotels">
+
+      </ul>
+    </div>
+  </body>
+  </html>
