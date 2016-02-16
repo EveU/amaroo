@@ -1,13 +1,13 @@
 var _ = require('lodash');
 var sampleData = require('./../sample');
 
-var BookingOptions = function(){
-  this.bookingType = "";
+var SearchResults = function(){
+  this.searchType = "";
   this.flights = [];
   this.hotels = [];
 }
 
-BookingOptions.prototype = {
+SearchResults.prototype = {
 
   addFlight: function(flight){
     this.flights.push(flight);
@@ -37,4 +37,4 @@ BookingOptions.prototype = {
   }
 };
 
-module.exports = BookingOptions;
+module.exports = SearchResults;
