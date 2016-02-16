@@ -16,7 +16,7 @@ window.onload = function(){
   // var matchingFlights = booking.matchingFlights(date);
   // var matchingHotels = booking.matchingHotels("Canberra");
 
-  booking.displayFlights(booking.flights);
+  // booking.displayFlights(booking.flights);
   booking.displayHotels(booking.hotels);
 
   // booking.displayFlights(matchingFlights);
@@ -29,25 +29,30 @@ window.onload = function(){
     var leaveFromInput = document.getElementById('leavingFrom');
     var goingToInput = document.getElementById('goingTo');
     var departureDate = document.getElementById('departureDate');
+    var returnDate = document.getElementById('returnDate');
 
     // console.log(leaveFromInput.value);
     // console.log(goingToInput.value);
     // console.log(departureDate.value);
 
-    var year = departureDate.value.substring(0,4);
-    var month = departureDate.value.substring(5,7);
-    var day = departureDate.value.substring(8,10);
+    var correctDate = function(date){
+    var year = date.substring(0,4);
+    var month = date.substring(5,7);
+    var day = date.substring(8,10);
     var correctedDate = day + "-" + month + "-" + year;
+    return correctedDate;
+    }
 
     var searchInputReturns = {
       homeCity: leavingFrom.value,
       destinationCity: goingToInput.value,
-      outboundDate: correctedDate
+      outboundDate: correctDate(departureDate.value),
+      inboundDate: correctDate(returnDate.value)
     }
     
     console.log(searchInputReturns);
 
-    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
+    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate, searchInputReturns.destinationCity);
     booking.displayFlights(booking.flights);
 
     var matchedHotels = booking.matchingHotels(searchInputReturns.destinationCity);

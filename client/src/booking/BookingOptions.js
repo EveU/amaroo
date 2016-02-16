@@ -44,10 +44,10 @@ BookingOptions.prototype = {
   //   return matchingFlights;
   // },
 
-  matchingFlights: function(date){
+  matchingFlights: function(date, city){
     this.flights = [];
     for(flight of sampleData.flights){
-      if(flight.departing.substring(0,10) === date){
+      if((flight.departing.substring(0,10) === date) && (flight.arrival === city)){
         this.addFlight(flight);
       }
     }
@@ -73,17 +73,27 @@ BookingOptions.prototype = {
     var flightsUl = document.getElementById("allFlights");
     flightsUl.innerHTML = "";
 
-    for(flight of object){
-      flight.date = flight.departing.substring(0,10);
-      flight.time = flight.departing.substring(12,20); 
-      flight.arriveDate = flight.arriving.substring(0,10);
-      flight.arriveTime = flight.arriving.substring(12,20);
+    if(object.length > 0){
+      for(flight of object){
+        flight.date = flight.departing.substring(0,10);
+        flight.time = flight.departing.substring(12,20); 
+        flight.arriveDate = flight.arriving.substring(0,10);
+        flight.arriveTime = flight.arriving.substring(12,20);
 
-      var flightsDisplay = document.createElement("li");
-      flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br><hr>";
+        var flightsDisplay = document.createElement("li");
+        console.log(this.flights);
+        console.log(this.flights.length);
 
-      flightsUl.appendChild(flightsDisplay);
+        flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br><hr>";
+
+        flightsUl.appendChild(flightsDisplay);
+      }
     }
+    else {
+      flightsUl.innerHTML = "No matching flights.";
+      // Later create paragraph tag and append to that later (set to hidden etc if not used).
+    }
+
   },
 
   displayHotels: function(object){
