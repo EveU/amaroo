@@ -1,31 +1,20 @@
 var sampleData = require('./sample');
 var BookingOptions = require('./booking/BookingOptions');
+var displayFlights = require('./views/defaultView').displayFlights;
+var displayHotels = require('./views/defaultView').displayHotels;
+
 
 window.onload = function(){
   console.log('loaded app');
-  var booking = new BookingOptions();
 
-  // booking.displayFlights(sampleData.flights);
-  // booking.displayHotels(sampleData.hotels);
-
-  // booking.populateFlights(sampleData);
-  // booking.populateHotels(sampleData);
-
-  // var date = "28-03-2016";
-  
-  // var matchingFlights = booking.matchingFlights(date);
-  // var matchingHotels = booking.matchingHotels("Canberra");
-
-  booking.displayFlights(booking.flights);
-  booking.displayHotels(booking.hotels);
-
-  // booking.displayFlights(matchingFlights);
-  // booking.displayHotels(matchingHotels);
+  displayFlights(sampleData.flights);
+  displayHotels(sampleData.hotels);
 
   var button = document.getElementById('searchButton');
 
   button.onclick = function(){
-    console.log("I was clicked and I liked it");
+    var booking = new BookingOptions();
+
     var leaveFromInput = document.getElementById('leavingFrom');
     var goingToInput = document.getElementById('goingTo');
     var departureDate = document.getElementById('departureDate');
@@ -40,12 +29,12 @@ window.onload = function(){
     var correctedDate = day + "-" + month + "-" + year;
 
     var searchInputReturns = {
-      homeCity: leavingFrom.value,
+      homeCity: leavingFromInput.value,
       destinationCity: goingToInput.value,
       outboundDate: correctedDate
     }
     
-    console.log(searchInputReturns);
+    // console.log(searchInputReturns);
 
     var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
     booking.displayFlights(booking.flights);
