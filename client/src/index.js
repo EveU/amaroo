@@ -1,11 +1,15 @@
 var sampleData = require('./sample');
-var BookingOptions = require('./booking/BookingOptions');
+var SearchResults = require('./models/SearchResults');
+var moment = require('moment');
 var displayFlights = require('./views/defaultView').displayFlights;
 var displayHotels = require('./views/defaultView').displayHotels;
 
+var correctDate = function(date){
+  var correctedDate = moment(date, "YYYY MM DD");
+  return moment(correctedDate).format("DD" + "-" + "MM" +"-" + "YYYY");
+}
 
 window.onload = function(){
-  console.log('loaded app');
 
   displayFlights(sampleData.flights);
   displayHotels(sampleData.hotels);
@@ -13,34 +17,27 @@ window.onload = function(){
   var button = document.getElementById('searchButton');
 
   button.onclick = function(){
-    var booking = new BookingOptions();
 
     var leaveFromInput = document.getElementById('leavingFrom');
     var goingToInput = document.getElementById('goingTo');
     var departureDate = document.getElementById('departureDate');
+    var returnDate = document.getElementById('returnDate');
 
-    // console.log(leaveFromInput.value);
-    // console.log(goingToInput.value);
-    // console.log(departureDate.value);
-
-    var year = departureDate.value.substring(0,4);
-    var month = departureDate.value.substring(5,7);
-    var day = departureDate.value.substring(8,10);
-    var correctedDate = day + "-" + month + "-" + year;
-
-    var searchInputReturns = {
-      homeCity: leavingFromInput.value,
-      destinationCity: goingToInput.value,
-      outboundDate: correctedDate
+    var userInput = {
+      tripOrigin: leaveFromInput.value,
+      tripDestination: goingToInput.value,
+      departDate: correctDate(departureDate.value),
+      returnDate: correctDate(returnDate.value)
     }
+
+    var currentSearch = new SearchResults();
+    currentSearch.updateUserInput(userInput);
     
-    // console.log(searchInputReturns);
+    var matchedFlights = currentSearch.matchingFlights();
+    displayFlights(currentSearch.flights);
 
-    var matchedFlights = booking.matchingFlights(searchInputReturns.outboundDate);
-    booking.displayFlights(booking.flights);
-
-    var matchedHotels = booking.matchingHotels(searchInputReturns.destinationCity);
-    booking.displayHotels(booking.hotels);
+    var matchedHotels = currentSearch.matchingHotels();
+    displayHotels(currentSearch.hotels);
 
   }
 
