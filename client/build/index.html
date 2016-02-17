@@ -3,10 +3,14 @@
 <head>
   <title>Trouvaille | Fly - Stay - Explore</title>
   <script src='bundle.js'></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <h1>Flightr</h1>
-  <div>
+ <div class="container">
+  <h1>trouvaille.com</h1>
+  <div class="form-back">
+    
     <form>
       <label class= "formTitle">Leaving From</label>
       <input type="text" id="leavingFrom" size="40" placeholder="Airport or City"></input>
@@ -23,20 +27,20 @@
       <input type="text" id="Adults" size="10" placeholder="1"> 
       <label class= "formTitle">Children
         <input type="text" id="Children" size="10" placeholder="1"> -->
-      <input type="button" id="searchButton" value="Submit">
-    </form>	
-  </div>
-  <div>
-    <h3>Flights</h3>
-    <ul id="allFlights">
+        <input type="button" id="searchButton" value="Submit">
+      </div>
+    </form> 
+    <div>
+      <h3>Flights</h3>
+      <ul id="allFlights">
 
-    </ul>
-  </div>
-  <div>
-    <h3>Hotels</h3>
-    <ul id="allHotels">
-
-    </ul>
+      </ul>
+    </div>
+    <div>
+      <h3>Hotels</h3>
+      <ul id="allHotels">
+      </ul>
+    </div>
   </div>
 </body>
 </html>
