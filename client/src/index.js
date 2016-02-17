@@ -3,6 +3,7 @@ var SearchResults = require('./models/SearchResults');
 var moment = require('moment');
 var displayFlights = require('./views/defaultView').displayFlights;
 var displayHotels = require('./views/defaultView').displayHotels;
+var displayPackages = require('./views/defaultView').displayPackages;
 
 var Hotel = require('./models/hotel');
 
@@ -51,9 +52,12 @@ window.onload = function(){
     // var lengthOfStay = currentSearch.lengthOfStay();
 
     var matchedFlights = currentSearch.matchingFlights();
-    displayFlights(currentSearch.flights);
+    // displayFlights(currentSearch.flights);
 
     var matchedHotels = currentSearch.matchingHotels();
-    displayHotels(currentSearch.hotels);
+    // displayHotels(currentSearch.hotels);
+
+    var matchedPackages = currentSearch.matchingPackages();
+    displayPackages(currentSearch.packages);
   }
 };

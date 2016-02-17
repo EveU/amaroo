@@ -2,6 +2,8 @@ var _ = require('lodash');
 var sampleData = require('./../sample');
 var moment = require('moment');
 var Hotel = require('./hotel');
+var Flight = require('./flight');
+var Package = require('./package');
 
 
 var SearchResults = function(){
@@ -9,6 +11,7 @@ var SearchResults = function(){
   this.userInput = {};
   this.flights = [];
   this.hotels = [];
+  this.packages = [];
 }
 
 SearchResults.prototype = {
@@ -34,7 +37,7 @@ SearchResults.prototype = {
     this.flights = [];
     for(flight of sampleData.flights){
       if((flight.departing.substring(0,10) === this.userInput.departDate) && (flight.arrival === this.userInput.tripDestination)){
-        this.addFlight(flight);
+        this.addFlight(new Flight(flight));
       }
     }
     return this.flights;
@@ -47,8 +50,17 @@ SearchResults.prototype = {
         newHotel = new Hotel(hotel);
         newHotel.calculateStay(this.userInput);
         newHotel.calculatePrice();
-        console.log(newHotel);
         this.addHotel(newHotel);
+      }
+    }
+  },
+
+  matchingPackages: function(){
+    this.packages = [];
+    for(flight of this.flights){
+      for(hotel of this.hotels){
+        var package = new Package(flight, hotel);
+        this.packages.push(package);
       }
     }
   }
