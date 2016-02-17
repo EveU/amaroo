@@ -31,7 +31,7 @@ window.onload = function(){
 
   var defaultView = new DefaultView(document);
   defaultView.displayFlights(sampleData.flights);
-  // displayHotels(sampleData.hotels);
+  defaultView.displayHotels(sampleData.hotels);
 
   var button = document.getElementById('searchButton');
   button.onclick = function(){
@@ -61,5 +61,6 @@ window.onload = function(){
 
     var matchedPackages = currentSearch.matchingPackages();
     defaultView.displayPackages(currentSearch.packages);
+    // defaultView.displayPackageDetails(currentSearch.packages[0]);
   }
 };

@@ -4,16 +4,18 @@ var SearchResults = require("./../models/SearchResults");
 
 var Hotel = require('../models/hotel');
 
-
-
 var DefaultView = function(document){
   this.document = document;
+  this.flightsDisplay = document.getElementById("flights");
+  this.flightsUl = document.getElementById("allFlights");
   this.hotelsDisplay = document.getElementById("hotels");
   this.hotelsUl = document.getElementById("allHotels");
   this.packagesDisplay = document.getElementById("packages");
   this.packagesUl = document.getElementById("allPackages");
-  this.flightsDisplay = document.getElementById("flights");
-  this.flightsUl = document.getElementById("allFlights");
+  this.packageDetailsDisplay = document.getElementById("packageDetails");
+  this.packageHeader = document.getElementById("packageHeader");
+  this.packageFlightLi = document.getElementById("packageFlight");
+  this.packageHotelLi = document.getElementById("packageHotel");
 }
 
 DefaultView.prototype = {
@@ -25,13 +27,23 @@ DefaultView.prototype = {
     this.flightsDisplay.style.display = "none";
   },
 
-  clearPackageDisplay: function(){
+  clearPackagesDisplay: function(){
     this.packagesDisplay.style.display = "none";
   },
 
+  clearPackageDetailsDisplay: function(){
+    this.packageDetailsDisplay.style.display = "none";
+  },
+
+  clearAll: function(){
+    this.clearHotelDisplay();
+    this.clearFlightDisplay();
+    this.clearPackagesDisplay();
+    this.clearPackageDetailsDisplay();
+  },
 
   displayFlights: function(flights){
-    this.clearPackageDisplay();
+    this.clearAll();
     this.flightsDisplay.style.display = "block";
 
     this.flightsUl.innerHTML = "";
@@ -56,18 +68,18 @@ DefaultView.prototype = {
   },
 
   displayHotels: function(hotels){
-    this.clearPackageDisplay();
+    // this.clearPackageDisplay();
     this.hotelsDisplay.style.display = "block";
     this.hotelsUl.innerHTML = "";
 
     for(hotel of hotels){
 
       var hotelsDisplay = document.createElement("li");
-      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + hotel.totalCost + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
+      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price per person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
 
       this.hotelsUl.appendChild(hotelsDisplay);
     }
-      // <br><small>Price based on one person staying for " + lengthOfStay + " nights.
+
   },
 
   displayPackages: function(packages){
@@ -84,10 +96,18 @@ DefaultView.prototype = {
 
       this.packagesUl.appendChild(packagesDisplay);
     }
-  }
+  },
 
+  displayPackageDetails: function(package){
+    this.clearAll();
+    this.packageDetailsDisplay.style.display = "block";
+
+    this.packageHeader.innerText = package.flight.departure + " - " + package.flight.arrival + " £       " + package.price;
+
+    this.packageFlightLi.innerHTML = "Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "<br> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "<br><h4>Price: £" + package.flight.price + "</h4>";
+
+    this.packageHotelLi.innerHTML = "<h3>" + package.hotel.name + "</h3><br>Rating: " + package.hotel.stars + " Stars<br>£" + package.hotel.pricePerPerson + " <small>Price per person per night</small><br><h4>Price: £" + package.hotel.totalCost + "</h4>";
+  }
 }
 
 module.exports = DefaultView;
- 
-
