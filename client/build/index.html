@@ -9,36 +9,38 @@
 <body>
  <div class="container">
   <h1>trouvaille.com</h1>
-  <div class="form-back">
+  <div>
     
     <form>
-      <label class= "formTitle">Leaving From</label>
-      <input type="text" id="leavingFrom" size="40" placeholder="Airport or City"></input>
-      <br>
-      <label class= "formTitle">Going To</label>
-      <input type="text" id="goingTo" size="40" placeholder="Airport or City"></input>
-      <br>	
-      <label class= "formTitle">Departure Date</label>
-      <input type="date" id="departureDate" size="40"></input>
-      <br>
-      <label class="formTitle">Return Date</label>
-      <input type="date" id="returnDate" size="40"></input>
-    <!-- <label class= "formTitle">Adults
-      <input type="text" id="Adults" size="10" placeholder="1"> 
-      <label class= "formTitle">Children
-        <input type="text" id="Children" size="10" placeholder="1"> -->
-        <input type="button" id="searchButton" value="Submit">
+      <ul class="formList">
+        
+        <li><label class= "formTitle">Leaving From</label>
+        <input type="text" id="leavingFrom" size="30" placeholder="Airport or City"></input></li>
+        <br> 
+        <li><label class= "formTitle">Going To</label>
+        <input type="text" id="goingTo" size="30" placeholder="Airport or City"></input></li>
+        <br>  
+        <li><label class= "formTitle">Departure Date</label>
+        <input type="date" id="departureDate" size="30"></input></li>
+        <br>
+        <li><label class="formTitle">Return Date</label>
+        <input type="date" id="returnDate" size="30"></input></li>
+      <!-- <label class= "formTitle">Adults
+        <input type="text" id="Adults" size="10" placeholder="1"> 
+        <label class= "formTitle">Children
+          <input type="text" id="Children" size="10" placeholder="1"> -->
+          <li><input type="button" id="searchButton" value="Submit"></li>
+      </ul>
       </div>
     </form> 
     <div>
-      <h3>Flights</h3>
-      <ul id="allFlights">
-
+      <h2 class="grid grid-12">Flights</h2>
+      <ul class="displayInfo" id="allFlights">
       </ul>
     </div>
     <div>
-      <h3>Hotels</h3>
-      <ul id="allHotels">
+      <h2 class="grid grid-12">Hotels</h2>
+      <ul class="displayInfo" id="allHotels">
       </ul>
     </div>
   </div>
