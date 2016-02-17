@@ -1,9 +1,11 @@
 var sampleData = require('./sample');
 var SearchResults = require('./models/SearchResults');
 var moment = require('moment');
-var displayFlights = require('./views/defaultView').displayFlights;
-var displayHotels = require('./views/defaultView').displayHotels;
-var displayPackages = require('./views/defaultView').displayPackages;
+// var displayFlights = require('./views/defaultView').displayFlights;
+// var displayHotels = require('./views/defaultView').displayHotels;
+// var displayPackages = require('./views/defaultView').displayPackages;
+
+var DefaultView = require('./views/defaultView');
 
 var Hotel = require('./models/hotel');
 
@@ -27,11 +29,11 @@ window.onload = function(){
   // var currentSearch = new SearchResults();
   // currentSearch.updateUserInput(userInput);
 
-  // displayFlights(sampleData.flights);
+  var defaultView = new DefaultView(document);
+  defaultView.displayFlights(sampleData.flights);
   // displayHotels(sampleData.hotels);
 
   var button = document.getElementById('searchButton');
-
   button.onclick = function(){
 
     var leaveFromInput = document.getElementById('leavingFrom');
@@ -58,6 +60,6 @@ window.onload = function(){
     // displayHotels(currentSearch.hotels);
 
     var matchedPackages = currentSearch.matchingPackages();
-    displayPackages(currentSearch.packages);
+    defaultView.displayPackages(currentSearch.packages);
   }
 };

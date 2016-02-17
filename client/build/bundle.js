@@ -47,11 +47,13 @@
 	var sampleData = __webpack_require__(1);
 	var SearchResults = __webpack_require__(2);
 	var moment = __webpack_require__(5);
-	var displayFlights = __webpack_require__(103).displayFlights;
-	var displayHotels = __webpack_require__(103).displayHotels;
-	var displayPackages = __webpack_require__(103).displayPackages;
+	// var displayFlights = require('./views/defaultView').displayFlights;
+	// var displayHotels = require('./views/defaultView').displayHotels;
+	// var displayPackages = require('./views/defaultView').displayPackages;
 	
-	var Hotel = __webpack_require__(104);
+	var DefaultView = __webpack_require__(106);
+	
+	var Hotel = __webpack_require__(103);
 	
 	var correctDate = function(date){
 	  var correctedDate = moment(date, "YYYY MM DD");
@@ -73,11 +75,11 @@
 	  // var currentSearch = new SearchResults();
 	  // currentSearch.updateUserInput(userInput);
 	
-	  // displayFlights(sampleData.flights);
+	  var defaultView = new DefaultView(document);
+	  defaultView.displayFlights(sampleData.flights);
 	  // displayHotels(sampleData.hotels);
 	
 	  var button = document.getElementById('searchButton');
-	
 	  button.onclick = function(){
 	
 	    var leaveFromInput = document.getElementById('leavingFrom');
@@ -104,7 +106,7 @@
 	    // displayHotels(currentSearch.hotels);
 	
 	    var matchedPackages = currentSearch.matchingPackages();
-	    displayPackages(currentSearch.packages);
+	    defaultView.displayPackages(currentSearch.packages);
 	  }
 	};
 
@@ -276,9 +278,9 @@
 	var _ = __webpack_require__(3);
 	var sampleData = __webpack_require__(1);
 	var moment = __webpack_require__(5);
-	var Hotel = __webpack_require__(104);
-	var Flight = __webpack_require__(105);
-	var Package = __webpack_require__(106);
+	var Hotel = __webpack_require__(103);
+	var Flight = __webpack_require__(104);
+	var Package = __webpack_require__(105);
 	
 	
 	var SearchResults = function(){
@@ -27905,97 +27907,6 @@
 
 	var _ = __webpack_require__(3);
 	var sampleData = __webpack_require__(1);
-	var SearchResults = __webpack_require__(2);
-	
-	var Hotel = __webpack_require__(104);
-	
-	// var clearHotelDisplay = function(){
-	//   hotelsDisplay.style.display = "none";
-	// }
-	
-	// var clearFlightDisplay = function(){
-	//   flightsDisplay.style.display = "none";
-	// }
-	
-	// var clearPackageDisplay = function(){
-	//   packagesDisplay.style.display = "none";
-	// }
-	
-	var displayFlights = function(flights){
-	  clearPackageDisplay();
-	  flightsDisplay.style.display = "block";
-	  var flightsUl = document.getElementById("allFlights");
-	  flightsUl.innerHTML = "";
-	
-	  if(flights.length > 0){
-	    for(flight of flights){
-	      flight.date = flight.departing.substring(0,10);
-	      flight.time = flight.departing.substring(12,20); 
-	      flight.arriveDate = flight.arriving.substring(0,10);
-	      flight.arriveTime = flight.arriving.substring(12,20);
-	
-	      var flightsDisplay = document.createElement("li");
-	
-	      flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br>";
-	
-	      flightsUl.appendChild(flightsDisplay);
-	    }
-	  }
-	  else {
-	    flightsUl.innerHTML = "No matching flights.";
-	  }
-	};
-	
-	var displayHotels = function(hotels){
-	  clearPackageDisplay();
-	  var hotelsUl = document.getElementById("allHotels");
-	  hotelsDisplay.style.display = "block";
-	  hotelsUl.innerHTML = "";
-	
-	  for(hotel of hotels){
-	
-	    var hotelsDisplay = document.createElement("li");
-	    hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + hotel.totalCost + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
-	
-	    hotelsUl.appendChild(hotelsDisplay);
-	  }
-	    // <br><small>Price based on one person staying for " + lengthOfStay + " nights.
-	  };
-	
-	
-	  var displayPackages = function(packages){
-	    // clearHotelDisplay();
-	    // clearFlightDisplay();
-	
-	    packagesDisplay.style.display = "block";
-	
-	    var packagesUl = document.getElementById("allPackages");
-	    packagesUl.innerHTML = "";
-	
-	    for(package of packages){
-	      var packagesDisplay = document.createElement("li");
-	      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
-	
-	      packagesUl.appendChild(packagesDisplay);
-	    }
-	  }
-	
-	// var orderFlightsByPrice = function(){
-	//   this.flights = _.orderBy(this.flights, ['price'], ['asc']);
-	// };
-	
-	// var orderHotelsByPrice = function(){
-	//   this.hotels = _.orderBy(this.hotels, ['pricePerPerson'], ['asc']);
-	// }
-	
-	module.exports = {displayFlights: displayFlights, displayHotels: displayHotels, displayPackages: displayPackages}
-
-/***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(3);
-	var sampleData = __webpack_require__(1);
 	var moment = __webpack_require__(5);
 	
 	var Hotel = function(hotel){
@@ -28023,7 +27934,7 @@
 	module.exports = Hotel;
 
 /***/ },
-/* 105 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(3);
@@ -28042,7 +27953,7 @@
 	module.exports = Flight;
 
 /***/ },
-/* 106 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(3);
@@ -28057,6 +27968,105 @@
 	
 	
 	module.exports = Package;
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(3);
+	var sampleData = __webpack_require__(1);
+	var SearchResults = __webpack_require__(2);
+	
+	var Hotel = __webpack_require__(103);
+	
+	
+	
+	var DefaultView = function(document){
+	  this.document = document;
+	  this.hotelsDisplay = document.getElementById("hotels");
+	  this.hotelsUl = document.getElementById("allHotels");
+	  this.packagesDisplay = document.getElementById("packages");
+	  this.packagesUl = document.getElementById("allPackages");
+	  this.flightsDisplay = document.getElementById("flights");
+	  this.flightsUl = document.getElementById("allFlights");
+	}
+	
+	DefaultView.prototype = {
+	  clearHotelDisplay: function(){
+	    this.hotelsDisplay.style.display = "none";
+	  },
+	
+	  clearFlightDisplay: function(){
+	    this.flightsDisplay.style.display = "none";
+	  },
+	
+	  clearPackageDisplay: function(){
+	    this.packagesDisplay.style.display = "none";
+	  },
+	
+	
+	  displayFlights: function(flights){
+	    this.clearPackageDisplay();
+	    this.flightsDisplay.style.display = "block";
+	
+	    this.flightsUl.innerHTML = "";
+	
+	    if(flights.length > 0){
+	      for(flight of flights){
+	        flight.date = flight.departing.substring(0,10);
+	        flight.time = flight.departing.substring(12,20); 
+	        flight.arriveDate = flight.arriving.substring(0,10);
+	        flight.arriveTime = flight.arriving.substring(12,20);
+	
+	        var flightsDisplay = document.createElement("li");
+	
+	        flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br>";
+	
+	        this.flightsUl.appendChild(flightsDisplay);
+	      }
+	    }
+	    else {
+	      this.flightsUl.innerHTML = "No matching flights.";
+	    }
+	  },
+	
+	  displayHotels: function(hotels){
+	    this.clearPackageDisplay();
+	    this.hotelsDisplay.style.display = "block";
+	    this.hotelsUl.innerHTML = "";
+	
+	    for(hotel of hotels){
+	
+	      var hotelsDisplay = document.createElement("li");
+	      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + hotel.totalCost + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
+	
+	      this.hotelsUl.appendChild(hotelsDisplay);
+	    }
+	      // <br><small>Price based on one person staying for " + lengthOfStay + " nights.
+	  },
+	
+	  displayPackages: function(packages){
+	    this.clearFlightDisplay();
+	    this.clearHotelDisplay();
+	    this.packagesDisplay.style.display = "block";
+	
+	    var packagesUl = document.getElementById("allPackages");
+	    this.packagesUl.innerHTML = "";
+	
+	    for(package of packages){
+	      var packagesDisplay = document.createElement("li");
+	      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+	
+	      this.packagesUl.appendChild(packagesDisplay);
+	    }
+	  }
+	
+	}
+	
+	module.exports = DefaultView;
+	 
+	
+
 
 /***/ }
 /******/ ]);
