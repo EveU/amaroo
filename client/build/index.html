@@ -3,17 +3,21 @@
 <head>
   <title>Project 2</title>
   <script src='bundle.js'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <h1>Flightr</h1>
-  <div>
+   <div class="container">
+  <h1>trouvaille.com</h1>
+  <div class="form-back">
+      
     <form>
-      <label class= "formTitle">Leaving From
+        <label class= "formTitle">Leaving From
         <input type="text" id="leavingFrom" size="40" placeholder="Airport or City">
         <br>
         <label class= "formTitle">Going To
           <input type="text" id="goingTo" size="40" placeholder="Airport or City">
-          <br>	
+          <br>  
           <label class= "formTitle">Date
           <input type="date" id="departureDate" size="40">
     <!--   <p class= "formTitle">Date
@@ -24,10 +28,8 @@
       <p class= "formTitle">Children
         <input type="text" id="Children" size="10" placeholder="1"> -->
         <input type="button" id="searchButton" value="Submit">
-
-
-      </form>	
-    </div>
+        </div>
+      </form> 
     <div>
       <h3>Flights</h3>
       <ul id="allFlights">
@@ -39,6 +41,7 @@
       <ul id="allHotels">
 
       </ul>
+    </div>
     </div>
   </body>
   </html>

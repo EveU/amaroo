@@ -1,0 +1,114 @@
+body {
+	background-image: url("../images/uluruSunrise.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    background-size: 100% auto;
+    font-family: 'Merienda', cursive;
+}
+
+h1 {
+	color: white;
+	text-shadow: 2px 1px black;
+}
+
+form {
+	padding: 5px;
+	width: 50%;
+  	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+ul {
+	width: 100%;
+}
+
+ul li {
+	width: 30%;
+	display: inline-block;
+	list-style: none;
+	font-family: trebuchet;
+	font-size: 12;
+	padding: 5px;
+	background-color: rgba(255, 255, 255, 0.3);
+  	border: 1px solid black;
+
+}
+
+#allFlight {
+	padding: 5px;
+	width: 50%;
+	background-color: rgba(0, 0, 0, 0.1);
+  	border: 1px solid black;
+}
+
+
+/* GRID FRAMEWORK */
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.row {
+  display: block;
+  margin-left: -10px;
+  margin-right: -10px;
+
+
+.grid {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -4px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.grid-1 {
+  width: 8.3333333%;
+}
+
+.grid-2 {
+  width: 16.666666%;
+}
+
+.grid-3 {
+  width: 25%;
+}
+
+.grid-4 {
+  width: 33.3333333%;
+}
+
+.grid-5 {
+  width: 41.6666666%;
+}
+
+.grid-6 {
+  width: 50%;
+}
+
+.grid-7 {
+  width: 58.3333333%;
+}
+
+.grid-8 {
+  width: 66.6666666%;
+}
+
+.grid-9 {
+  width: 75%;
+}
+
+.grid-10 {
+  width: 83.3333333%;
+}
+
+.grid-11 {
+  width: 91.6666666%;
+}
+
+.grid-12 {
+  width: 100%;
+}
