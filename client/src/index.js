@@ -60,7 +60,7 @@ window.onload = function(){
     // displayHotels(currentSearch.hotels);
 
     var matchedPackages = currentSearch.matchingPackages();
-    // defaultView.displayPackages(currentSearch.packages);
-    defaultView.displayPackageDetails(currentSearch.packages[0]);
+    defaultView.displayPackages(currentSearch.packages);
+    // defaultView.displayPackageDetails(currentSearch.packages[0]);
   }
 };

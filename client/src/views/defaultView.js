@@ -13,9 +13,6 @@ var DefaultView = function(document){
   this.packagesDisplay = document.getElementById("packages");
   this.packagesUl = document.getElementById("allPackages");
   this.packageDetailsDisplay = document.getElementById("packageDetails");
-  this.packageHeader = document.getElementById("packageHeader");
-  this.packageFlightLi = document.getElementById("packageFlight");
-  this.packageHotelLi = document.getElementById("packageHotel");
 }
 
 DefaultView.prototype = {
@@ -57,7 +54,7 @@ DefaultView.prototype = {
 
         var flightsDisplay = document.createElement("li");
 
-        flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br>";
+        flightsDisplay.innerHTML = "<h2>" + flight.departure + " - " + flight.arrival + "</h2><p>Departs: " + flight.date + ",  " + flight.time + "<br>Arrives: " + flight.arriveDate + ", " + flight.arriveTime + "<br><h2>£" + flight.price + "pp</h2>";
 
         this.flightsUl.appendChild(flightsDisplay);
       }
@@ -68,23 +65,20 @@ DefaultView.prototype = {
   },
 
   displayHotels: function(hotels){
-    // this.clearPackageDisplay();
     this.hotelsDisplay.style.display = "block";
     this.hotelsUl.innerHTML = "";
 
     for(hotel of hotels){
 
       var hotelsDisplay = document.createElement("li");
-      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price per person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
-
+      hotelsDisplay.innerHTML = "<h2>" + hotel.name + "</h2><h3>" + hotel.address.city + "</h3><img src='../images/" + hotel.stars + "star.png'/><h2>£" + hotel.pricePerPerson + "</h2>per person per night";
       this.hotelsUl.appendChild(hotelsDisplay);
     }
 
   },
 
   displayPackages: function(packages){
-    this.clearFlightDisplay();
-    this.clearHotelDisplay();
+    this.clearAll();
     this.packagesDisplay.style.display = "block";
 
     var packagesUl = document.getElementById("allPackages");
@@ -92,7 +86,7 @@ DefaultView.prototype = {
 
     for(package of packages){
       var packagesDisplay = document.createElement("li");
-      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><img src='../images/" + package.hotel.stars + "star.png'/><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
 
       this.packagesUl.appendChild(packagesDisplay);
     }
@@ -102,7 +96,7 @@ DefaultView.prototype = {
     this.clearAll();
     this.packageDetailsDisplay.style.display = "block";
 
-    this.packageDetailsDisplay.innerHTML = "<h1>" + package.flight.departure + " - " + package.flight.arrival + "</h1><h1>£" + package.price + "</h1><hr><h5>Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "</h5><h5> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "</h5><h3>Price: £" + package.flight.price + "</h3><hr><h2>" + package.hotel.name + "</h2><h5>Rating: " + package.hotel.stars + " Stars</h5><h5>£" + package.hotel.pricePerPerson + " per person per night</h5><h3>Price: £" + package.hotel.totalCost + "</h3><br><button>Book</button>";
+    this.packageDetailsDisplay.innerHTML = "<h1>" + package.flight.departure + " - " + package.flight.arrival + "</h1><h1>£" + package.price + "</h1><hr><h5>Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "</h5><h5> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "</h5><h3>Price: £" + package.flight.price + "</h3><hr><h2>" + package.hotel.name + " <img src='../images/" + hotel.stars + "star.png'/></h2><h5>£" + package.hotel.pricePerPerson + " per person per night</h5><h3>Price: £" + package.hotel.totalCost + "</h3><br><button>Book</button>";
   }
 }
 

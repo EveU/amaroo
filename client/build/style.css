@@ -1,3 +1,7 @@
+img {
+  max-height: 30px;
+}
+
 body {
 	background-image: url("../images/ulurusun.jpg");
 	background-repeat: no-repeat;
@@ -88,6 +92,7 @@ a:visited {
   display: block;
   margin-left: -10px;
   margin-right: -10px;
+}
 
 
 .grid {

@@ -106,8 +106,8 @@
 	    // displayHotels(currentSearch.hotels);
 	
 	    var matchedPackages = currentSearch.matchingPackages();
-	    // defaultView.displayPackages(currentSearch.packages);
-	    defaultView.displayPackageDetails(currentSearch.packages[0]);
+	    defaultView.displayPackages(currentSearch.packages);
+	    // defaultView.displayPackageDetails(currentSearch.packages[0]);
 	  }
 	};
 
@@ -121,28 +121,28 @@
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Melbourne",
 	      "departing" : "26-03-2016 T08:00:00", 
-	      "arriving"  : "29-03-2016 T10:00:00", 
+	      "arriving"  : "27-03-2016 T10:00:00", 
 	      "price"     : 248
 	    },
 	    {
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Melbourne",
 	      "departing" : "26-03-2016 T12:00:00", 
-	      "arriving"  : "29-03-2016 T13:00:00", 
+	      "arriving"  : "27-03-2016 T13:00:00", 
 	      "price"     : 256
 	    },
 	    {
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Sydney",
 	      "departing" : "28-03-2016 T10:00:00", 
-	      "arriving"  : "28-03-2016 T11:00:00", 
+	      "arriving"  : "29-03-2016 T11:00:00", 
 	      "price"     : 293
 	    },
 	    {
 	      "departure" : "Edinburgh",
 	      "arrival"   : "Sydney",
 	      "departing" : "28-03-2016 T04:00:00", 
-	      "arriving"  : "28-03-2016 T06:00:00", 
+	      "arriving"  : "29-03-2016 T06:00:00", 
 	      "price"     : 310
 	    },
 	    {
@@ -27991,9 +27991,6 @@
 	  this.packagesDisplay = document.getElementById("packages");
 	  this.packagesUl = document.getElementById("allPackages");
 	  this.packageDetailsDisplay = document.getElementById("packageDetails");
-	  this.packageHeader = document.getElementById("packageHeader");
-	  this.packageFlightLi = document.getElementById("packageFlight");
-	  this.packageHotelLi = document.getElementById("packageHotel");
 	}
 	
 	DefaultView.prototype = {
@@ -28035,7 +28032,7 @@
 	
 	        var flightsDisplay = document.createElement("li");
 	
-	        flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br>";
+	        flightsDisplay.innerHTML = "<h2>" + flight.departure + " - " + flight.arrival + "</h2><p>Departs: " + flight.date + ",  " + flight.time + "<br>Arrives: " + flight.arriveDate + ", " + flight.arriveTime + "<br><h2>£" + flight.price + "pp</h2>";
 	
 	        this.flightsUl.appendChild(flightsDisplay);
 	      }
@@ -28046,23 +28043,20 @@
 	  },
 	
 	  displayHotels: function(hotels){
-	    // this.clearPackageDisplay();
 	    this.hotelsDisplay.style.display = "block";
 	    this.hotelsUl.innerHTML = "";
 	
 	    for(hotel of hotels){
 	
 	      var hotelsDisplay = document.createElement("li");
-	      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price per person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
-	
+	      hotelsDisplay.innerHTML = "<h2>" + hotel.name + "</h2><h3>" + hotel.address.city + "</h3><img src='../images/" + hotel.stars + "star.png'/><h2>£" + hotel.pricePerPerson + "</h2>per person per night";
 	      this.hotelsUl.appendChild(hotelsDisplay);
 	    }
 	
 	  },
 	
 	  displayPackages: function(packages){
-	    this.clearFlightDisplay();
-	    this.clearHotelDisplay();
+	    this.clearAll();
 	    this.packagesDisplay.style.display = "block";
 	
 	    var packagesUl = document.getElementById("allPackages");
@@ -28070,7 +28064,7 @@
 	
 	    for(package of packages){
 	      var packagesDisplay = document.createElement("li");
-	      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+	      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><img src='../images/" + package.hotel.stars + "star.png'/><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
 	
 	      this.packagesUl.appendChild(packagesDisplay);
 	    }
@@ -28080,7 +28074,7 @@
 	    this.clearAll();
 	    this.packageDetailsDisplay.style.display = "block";
 	
-	    this.packageDetailsDisplay.innerHTML = "<h1>" + package.flight.departure + " - " + package.flight.arrival + "</h1><h1>£" + package.price + "</h1><hr><h5>Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "</h5><h5> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "</h5><h3>Price: £" + package.flight.price + "</h3><hr><h2>" + package.hotel.name + "</h2><h5>Rating: " + package.hotel.stars + " Stars</h5><h5>£" + package.hotel.pricePerPerson + " per person per night</h5><h3>Price: £" + package.hotel.totalCost + "</h3><br><button>Book</button>";
+	    this.packageDetailsDisplay.innerHTML = "<h1>" + package.flight.departure + " - " + package.flight.arrival + "</h1><h1>£" + package.price + "</h1><hr><h5>Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "</h5><h5> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "</h5><h3>Price: £" + package.flight.price + "</h3><hr><h2>" + package.hotel.name + " <img src='../images/" + hotel.stars + "star.png'/></h2><h5>£" + package.hotel.pricePerPerson + " per person per night</h5><h3>Price: £" + package.hotel.totalCost + "</h3><br><button>Book</button>";
 	  }
 	}
 	
