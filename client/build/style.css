@@ -1,54 +1,86 @@
 body {
-	background-image: url("../images/uluruSunrise.jpg");
+	background-image: url("../images/ulurusun.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-    background-size: 100%, 100%;
-    font-family: 'Merienda', cursive;
+  background-size: 100%, 100%;
+  font-family: 'Merienda', cursive;
 }
 
 h1 {
 	color: white;
 	text-shadow: 2px 1px black;
+  margin-left: 25px;
 }
 
-form {
-	padding: 5px;
-	width: 50%;
-  	border: 1px solid black;
-	background-color: rgba(0, 0, 0, 0.1);
+h2 {
+    color: white;
+    text-shadow: 2px 1px black;
+    text-align: center;
 }
 
 
-
-ul {
-	width: 100%;
-}
-
-ul li {
-	width: 30%;
-  margin: 1%;
-	display: inline-block;
-	list-style: none;
-	font-family: trebuchet;
-	font-size: 12;
-	padding: 5px;
-	background-color: rgba(255, 255, 255, 0.3);
+.formList {
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  display: inline-flex;
+  line-height: 32px;
+  padding-left: 7px;
+  padding-right: 5px;
+  padding-bottom: 2px;
   border: 1px solid black;
+  box-shadow: 5px 5px 15px white;
+}
+
+label {
+  font-family: arial;
+  font-size: 14;
+  line-height: 32px;
+  padding-left: 10px;
+}
+
+a:visited {
+  color: inherit;
+}
+
+#searchButton {
+  margin-left: 5px;
 
 }
 
-#allFlight {
-	padding: 5px;
-	width: 50%;
-	background-color: rgba(0, 0, 0, 0.1);
-  	border: 1px solid black;
+#departureDate, #returnDate {
+  vertical-align: middle;
 }
 
+.displayInfo {
+  width: 100%;
+}
+
+.displayInfo li, #packageDetails {
+  list-style: none;
+  display: inline-block;
+  width: 30%;
+  margin: 1%;
+  font-family: arial;
+  font-size: 16;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
+  text-align: center;
+  box-shadow: 5px 5px 15px white;
+}
+
+#packageDetails {
+  width: 35%;
+  margin: auto;
+}
 
 /* GRID FRAMEWORK */
 
 .container {
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
 }
 

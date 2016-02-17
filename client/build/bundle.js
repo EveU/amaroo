@@ -106,8 +106,8 @@
 	    // displayHotels(currentSearch.hotels);
 	
 	    var matchedPackages = currentSearch.matchingPackages();
-	    defaultView.displayPackages(currentSearch.packages);
-	    // defaultView.displayPackageDetails(currentSearch.packages[0]);
+	    // defaultView.displayPackages(currentSearch.packages);
+	    defaultView.displayPackageDetails(currentSearch.packages[0]);
 	  }
 	};
 
@@ -28080,11 +28080,7 @@
 	    this.clearAll();
 	    this.packageDetailsDisplay.style.display = "block";
 	
-	    this.packageHeader.innerText = package.flight.departure + " - " + package.flight.arrival + " £       " + package.price;
-	
-	    this.packageFlightLi.innerHTML = "Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "<br> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "<br><h4>Price: £" + package.flight.price + "</h4>";
-	
-	    this.packageHotelLi.innerHTML = "<h3>" + package.hotel.name + "</h3><br>Rating: " + package.hotel.stars + " Stars<br>£" + package.hotel.pricePerPerson + " <small>Price per person per night</small><br><h4>Price: £" + package.hotel.totalCost + "</h4>";
+	    this.packageDetailsDisplay.innerHTML = "<h1>" + package.flight.departure + " - " + package.flight.arrival + "</h1><h1>£" + package.price + "</h1><hr><h5>Departing " + package.flight.departure + ": " + package.flight.departDate + ",  " + package.flight.departTime + "</h5><h5> Arriving " + package.flight.arrival + ": " + package.flight.arriveDate + ", " + package.flight.arriveTime + "</h5><h3>Price: £" + package.flight.price + "</h3><hr><h2>" + package.hotel.name + "</h2><h5>Rating: " + package.hotel.stars + " Stars</h5><h5>£" + package.hotel.pricePerPerson + " per person per night</h5><h3>Price: £" + package.hotel.totalCost + "</h3><br><button>Book</button>";
 	  }
 	}
 	
