@@ -62,19 +62,6 @@
 	
 	window.onload = function(){
 	
-	  // var placeholderDepart = moment();
-	  // var placeholderArrival = moment().add(1, "days");
-	
-	  // var userInput = {
-	  //   tripOrigin: "",
-	  //   tripDestination: "",
-	  //   departDate: correctDate(placeholderDepart),
-	  //   returnDate: correctDate(placeholderArrival)
-	  // }
-	
-	  // var currentSearch = new SearchResults();
-	  // currentSearch.updateUserInput(userInput);
-	
 	  var defaultView = new DefaultView(document);
 	  defaultView.displayFlights(sampleData.flights);
 	  defaultView.displayHotels(sampleData.hotels);
@@ -97,18 +84,22 @@
 	    var currentSearch = new SearchResults();
 	    currentSearch.updateUserInput(userInput);
 	    
-	    // var lengthOfStay = currentSearch.lengthOfStay();
-	
 	    var matchedFlights = currentSearch.matchingFlights();
-	    // displayFlights(currentSearch.flights);
-	
 	    var matchedHotels = currentSearch.matchingHotels();
-	    // displayHotels(currentSearch.hotels);
-	
 	    var matchedPackages = currentSearch.matchingPackages();
-	    // defaultView.displayPackages(currentSearch.packages);
-	    defaultView.displayPackageDetails(currentSearch.packages[0]);
-	  }
+	    defaultView.displayPackages(currentSearch.packages);
+	    // defaultView.displayPackageDetails(currentSearch.packages[0]);
+	
+	    var links = document.getElementsByClassName('link');
+	    for(i=0; i<links.length; i++){
+	      links[i].onclick = function(){
+	        var packageId = this.value;
+	        defaultView.displayPackageDetails(currentSearch.packages[packageId]);
+	      }
+	    }
+	  };
+	
+	
 	};
 
 /***/ },
@@ -28068,12 +28059,18 @@
 	    var packagesUl = document.getElementById("allPackages");
 	    this.packagesUl.innerHTML = "";
 	
-	    for(package of packages){
+	    for(i=0; i<packages.length; i++){
 	      var packagesDisplay = document.createElement("li");
-	      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+	      packagesDisplay.innerHTML = "<h2>" + packages[i].flight.departure + " - " + packages[i].flight.arrival + "</h2><h3>" + packages[i].hotel.name + "</h3><h1>£" + packages[i].price + "</h1><button class='link' value=" + i +" >Click for full details</button>"
 	
 	      this.packagesUl.appendChild(packagesDisplay);
 	    }
+	    // for(package of packages){
+	    //   var packagesDisplay = document.createElement("li");
+	    //   packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+	
+	    //   this.packagesUl.appendChild(packagesDisplay);
+	    // }
 	  },
 	
 	  displayPackageDetails: function(package){

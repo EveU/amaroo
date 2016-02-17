@@ -90,12 +90,18 @@ DefaultView.prototype = {
     var packagesUl = document.getElementById("allPackages");
     this.packagesUl.innerHTML = "";
 
-    for(package of packages){
+    for(i=0; i<packages.length; i++){
       var packagesDisplay = document.createElement("li");
-      packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+      packagesDisplay.innerHTML = "<h2>" + packages[i].flight.departure + " - " + packages[i].flight.arrival + "</h2><h3>" + packages[i].hotel.name + "</h3><h1>£" + packages[i].price + "</h1><button class='link' value=" + i +" >Click for full details</button>"
 
       this.packagesUl.appendChild(packagesDisplay);
     }
+    // for(package of packages){
+    //   var packagesDisplay = document.createElement("li");
+    //   packagesDisplay.innerHTML = "<h2>" + package.flight.departure + " - " + package.flight.arrival + "</h2><h3>" + package.hotel.name + "</h3><h1>£" + package.price + "</h1><a href=''>Click for full details</a>"
+
+    //   this.packagesUl.appendChild(packagesDisplay);
+    // }
   },
 
   displayPackageDetails: function(package){

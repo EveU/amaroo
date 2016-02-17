@@ -72,6 +72,10 @@ a:visited {
   box-shadow: 5px 5px 15px white;
 }
 
+.displayInfo h1, #packageDetails h1 {
+  margin-left: 0;
+}
+
 #packageDetails {
   width: 35%;
   margin: auto;
