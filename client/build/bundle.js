@@ -57,8 +57,22 @@
 	
 	window.onload = function(){
 	
+	  var placeholderDepart = moment();
+	  var placeholderArrival = moment().add(1, "days");
+	
+	  var userInput = {
+	    tripOrigin: "",
+	    tripDestination: "",
+	    departDate: correctDate(placeholderDepart),
+	    returnDate: correctDate(placeholderArrival)
+	  }
+	
+	  var currentSearch = new SearchResults();
+	  currentSearch.updateUserInput(userInput);
+	  var lengthOfStay = currentSearch.lengthOfStay();
+	
 	  displayFlights(sampleData.flights);
-	  displayHotels(sampleData.hotels);
+	  displayHotels(sampleData.hotels, lengthOfStay);
 	
 	  var button = document.getElementById('searchButton');
 	
@@ -79,16 +93,15 @@
 	    var currentSearch = new SearchResults();
 	    currentSearch.updateUserInput(userInput);
 	    
+	    var lengthOfStay = currentSearch.lengthOfStay();
+	
 	    var matchedFlights = currentSearch.matchingFlights();
 	    displayFlights(currentSearch.flights);
 	
 	    var matchedHotels = currentSearch.matchingHotels();
-	    displayHotels(currentSearch.hotels);
-	
+	    displayHotels(currentSearch.hotels, lengthOfStay);
 	  }
-	
 	};
-
 
 /***/ },
 /* 1 */
@@ -257,6 +270,7 @@
 
 	var _ = __webpack_require__(3);
 	var sampleData = __webpack_require__(1);
+	var moment = __webpack_require__(5);
 	
 	var SearchResults = function(){
 	  // this.searchType = "";
@@ -284,25 +298,30 @@
 	    this.hotels.push(hotel);
 	  },
 	
-	  matchingFlights: function(date){
-	    if(!date) date = this.userInput.departDate;
+	  matchingFlights: function(){
 	    this.flights = [];
 	    for(flight of sampleData.flights){
-	      if(flight.departing.substring(0,10) === date){
+	      if((flight.departing.substring(0,10) === this.userInput.departDate) && (flight.arrival === this.userInput.tripDestination)){
 	        this.addFlight(flight);
 	      }
 	    }
 	    return this.flights;
 	  },
 	
-	  matchingHotels: function(city){
-	    if(!city) city = this.userInput.tripDestination;
+	  matchingHotels: function(){
 	    this.hotels = [];
 	    for(hotel of sampleData.hotels){
-	      if(hotel.address.city === city){
+	      if(hotel.address.city === this.userInput.tripDestination){
 	        this.addHotel(hotel);
 	      }
 	    }
+	  },
+	
+	  lengthOfStay: function(){
+	    var checkIn = moment(this.userInput.departDate, "DD MM YYYY");
+	    var checkOut = moment(this.userInput.returnDate, "DD MM YYYY");
+	    var lengthOfStay = checkOut.diff(checkIn, "days");
+	    return lengthOfStay;
 	  }
 	};
 	
@@ -27870,37 +27889,50 @@
 
 	var _ = __webpack_require__(3);
 	var sampleData = __webpack_require__(1);
+	var SearchResults = __webpack_require__(2);
 	
+	var priceOfStay = function(nights, price){
+	  var nights = nights;
+	  var price = price;
+	  return (nights * price);
+	};
 	
 	var displayFlights = function(object){
 	  var flightsUl = document.getElementById("allFlights");
 	  flightsUl.innerHTML = "";
 	
-	  for(flight of object){
-	    flight.date = flight.departing.substring(0,10);
-	    flight.time = flight.departing.substring(12,20); 
-	    flight.arriveDate = flight.arriving.substring(0,10);
-	    flight.arriveTime = flight.arriving.substring(12,20);
+	  if(object.length > 0){
+	    for(flight of object){
+	      flight.date = flight.departing.substring(0,10);
+	      flight.time = flight.departing.substring(12,20); 
+	      flight.arriveDate = flight.arriving.substring(0,10);
+	      flight.arriveTime = flight.arriving.substring(12,20);
 	
-	    var flightsDisplay = document.createElement("li");
-	    flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br><hr>";
+	      var flightsDisplay = document.createElement("li");
 	
-	    flightsUl.appendChild(flightsDisplay);
+	      flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.date + ",  " + flight.time + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriveDate + ", " + flight.arriveTime + "<br><br>Price: £" + flight.price + "<br><hr>";
+	
+	      flightsUl.appendChild(flightsDisplay);
+	    }
 	  }
-	};
+	  else {
+	    flightsUl.innerHTML = "No matching flights.";
+	    }
+	  };
 	
-	var displayHotels = function(object){
-	  var hotelsUl = document.getElementById("allHotels");
-	  hotelsUl.innerHTML = "";
+	  var displayHotels = function(object, lengthOfStay){
+	    var hotelsUl = document.getElementById("allHotels");
+	    hotelsUl.innerHTML = "";
 	
-	  for(hotel of object){
+	    for(hotel of object){
 	
-	    var hotelsDisplay = document.createElement("li");
-	    hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price Per Person: £" + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
+	      var hotelsDisplay = document.createElement("li");
+	      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + priceOfStay(lengthOfStay, hotel.pricePerPerson) + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars <hr>";
 	
-	    hotelsUl.appendChild(hotelsDisplay);
-	  }
-	};
+	      hotelsUl.appendChild(hotelsDisplay);
+	    }
+	    // <br><small>Price based on one person staying for " + lengthOfStay + " nights.
+	  };
 	
 	// var orderFlightsByPrice = function(){
 	//   this.flights = _.orderBy(this.flights, ['price'], ['asc']);

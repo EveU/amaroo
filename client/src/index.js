@@ -11,8 +11,22 @@ var correctDate = function(date){
 
 window.onload = function(){
 
+  var placeholderDepart = moment();
+  var placeholderArrival = moment().add(1, "days");
+
+  var userInput = {
+    tripOrigin: "",
+    tripDestination: "",
+    departDate: correctDate(placeholderDepart),
+    returnDate: correctDate(placeholderArrival)
+  }
+
+  var currentSearch = new SearchResults();
+  currentSearch.updateUserInput(userInput);
+  var lengthOfStay = currentSearch.lengthOfStay();
+
   displayFlights(sampleData.flights);
-  displayHotels(sampleData.hotels);
+  displayHotels(sampleData.hotels, lengthOfStay);
 
   var button = document.getElementById('searchButton');
 
@@ -33,12 +47,12 @@ window.onload = function(){
     var currentSearch = new SearchResults();
     currentSearch.updateUserInput(userInput);
     
+    var lengthOfStay = currentSearch.lengthOfStay();
+
     var matchedFlights = currentSearch.matchingFlights();
     displayFlights(currentSearch.flights);
 
     var matchedHotels = currentSearch.matchingHotels();
-    displayHotels(currentSearch.hotels);
-
+    displayHotels(currentSearch.hotels, lengthOfStay);
   }
-
 };

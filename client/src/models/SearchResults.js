@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var sampleData = require('./../sample');
+var moment = require('moment');
 
 var SearchResults = function(){
   // this.searchType = "";
@@ -27,25 +28,30 @@ SearchResults.prototype = {
     this.hotels.push(hotel);
   },
 
-  matchingFlights: function(date){
-    if(!date) date = this.userInput.departDate;
+  matchingFlights: function(){
     this.flights = [];
     for(flight of sampleData.flights){
-      if(flight.departing.substring(0,10) === date){
+      if((flight.departing.substring(0,10) === this.userInput.departDate) && (flight.arrival === this.userInput.tripDestination)){
         this.addFlight(flight);
       }
     }
     return this.flights;
   },
 
-  matchingHotels: function(city){
-    if(!city) city = this.userInput.tripDestination;
+  matchingHotels: function(){
     this.hotels = [];
     for(hotel of sampleData.hotels){
-      if(hotel.address.city === city){
+      if(hotel.address.city === this.userInput.tripDestination){
         this.addHotel(hotel);
       }
     }
+  },
+
+  lengthOfStay: function(){
+    var checkIn = moment(this.userInput.departDate, "DD MM YYYY");
+    var checkOut = moment(this.userInput.returnDate, "DD MM YYYY");
+    var lengthOfStay = checkOut.diff(checkIn, "days");
+    return lengthOfStay;
   }
 };
 
