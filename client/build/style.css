@@ -1,0 +1,147 @@
+body {
+	background-image: url("../images/ulurusun.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+  background-size: 100%, 100%;
+  font-family: 'Merienda', cursive;
+}
+
+h1 {
+	color: white;
+	text-shadow: 2px 1px black;
+  margin-left: 25px;
+}
+
+h2 {
+    color: white;
+    text-shadow: 2px 1px black;
+    text-align: center;
+}
+
+
+.formList {
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  display: inline-flex;
+  line-height: 32px;
+  padding-left: 7px;
+  padding-right: 5px;
+  padding-bottom: 2px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 15px white;
+}
+
+label {
+  font-family: arial;
+  font-size: 14;
+  line-height: 32px;
+  padding-left: 10px;
+}
+
+a:visited {
+  color: inherit;
+}
+
+#searchButton {
+  margin-left: 5px;
+
+}
+
+#departureDate, #returnDate {
+  vertical-align: middle;
+}
+
+.displayInfo {
+  width: 100%;
+}
+
+.displayInfo li, #packageDetails {
+  list-style: none;
+  display: inline-block;
+  width: 30%;
+  margin: 1%;
+  font-family: arial;
+  font-size: 16;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
+  text-align: center;
+  box-shadow: 5px 5px 15px white;
+}
+
+#packageDetails {
+  width: 35%;
+  margin: auto;
+}
+
+/* GRID FRAMEWORK */
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.row {
+  display: block;
+  margin-left: -10px;
+  margin-right: -10px;
+
+
+.grid {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -4px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.grid-1 {
+  width: 8.3333333%;
+}
+
+.grid-2 {
+  width: 16.666666%;
+}
+
+.grid-3 {
+  width: 25%;
+}
+
+.grid-4 {
+  width: 33.3333333%;
+}
+
+.grid-5 {
+  width: 41.6666666%;
+}
+
+.grid-6 {
+  width: 50%;
+}
+
+.grid-7 {
+  width: 58.3333333%;
+}
+
+.grid-8 {
+  width: 66.6666666%;
+}
+
+.grid-9 {
+  width: 75%;
+}
+
+.grid-10 {
+  width: 83.3333333%;
+}
+
+.grid-11 {
+  width: 91.6666666%;
+}
+
+.grid-12 {
+  width: 100%;
+}

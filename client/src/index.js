@@ -1,34 +1,66 @@
 var sampleData = require('./sample');
+var SearchResults = require('./models/SearchResults');
+var moment = require('moment');
+// var displayFlights = require('./views/defaultView').displayFlights;
+// var displayHotels = require('./views/defaultView').displayHotels;
+// var displayPackages = require('./views/defaultView').displayPackages;
 
-var displayFlights = function(){
-  for(flight of sampleData.flights){
-    var flightsDiv = document.getElementById("allFlights");
+var DefaultView = require('./views/defaultView');
 
-    var flightsDisplay = document.createElement("p")
-    flightsDisplay.innerHTML = "Departure: " + flight.departure + "<br>Departure Time: " + flight.departing + "<br><br> Arrival: " + flight.arrival + "<br>Arrival Time: " + flight.arriving + "<br><br>Price: £" + flight.price + "<br><br><hr>";
+var Hotel = require('./models/hotel');
 
-    flightsDiv.appendChild(flightsDisplay);
-  }
-};
-
-var displayHotels = function(){
-  for(hotel of sampleData.hotels){
-    var hotelsDiv = document.getElementById("allHotels");
-
-    var hotelsDisplay = document.createElement("p");
-    hotelsDisplay.innerHTML = "<b>" + hotel.name + "</b><br>Price Per Person: " + hotel.pricePerPerson + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars + <hr>";
-
-    hotelsDiv.appendChild(hotelsDisplay);
-  }
-};
+var correctDate = function(date){
+  var correctedDate = moment(date, "YYYY MM DD");
+  return moment(correctedDate).format("DD" + "-" + "MM" +"-" + "YYYY");
+}
 
 window.onload = function(){
-  console.log('loaded app');
-  console.log('sampleData', sampleData.hotels);
 
-  displayFlights();
-  displayHotels();
+  // var placeholderDepart = moment();
+  // var placeholderArrival = moment().add(1, "days");
 
+  // var userInput = {
+  //   tripOrigin: "",
+  //   tripDestination: "",
+  //   departDate: correctDate(placeholderDepart),
+  //   returnDate: correctDate(placeholderArrival)
+  // }
+
+  // var currentSearch = new SearchResults();
+  // currentSearch.updateUserInput(userInput);
+
+  var defaultView = new DefaultView(document);
+  defaultView.displayFlights(sampleData.flights);
+  defaultView.displayHotels(sampleData.hotels);
+
+  var button = document.getElementById('searchButton');
+  button.onclick = function(){
+
+    var leaveFromInput = document.getElementById('leavingFrom');
+    var goingToInput = document.getElementById('goingTo');
+    var departureDate = document.getElementById('departureDate');
+    var returnDate = document.getElementById('returnDate');
+
+    var userInput = {
+      tripOrigin: leaveFromInput.value,
+      tripDestination: goingToInput.value,
+      departDate: correctDate(departureDate.value),
+      returnDate: correctDate(returnDate.value)
+    }
+
+    var currentSearch = new SearchResults();
+    currentSearch.updateUserInput(userInput);
+    
+    // var lengthOfStay = currentSearch.lengthOfStay();
+
+    var matchedFlights = currentSearch.matchingFlights();
+    // displayFlights(currentSearch.flights);
+
+    var matchedHotels = currentSearch.matchingHotels();
+    // displayHotels(currentSearch.hotels);
+
+    var matchedPackages = currentSearch.matchingPackages();
+    // defaultView.displayPackages(currentSearch.packages);
+    defaultView.displayPackageDetails(currentSearch.packages[0]);
+  }
 };
-
-// Number(flight.price).toFixed(2)
