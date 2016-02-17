@@ -50,6 +50,8 @@
 	var displayFlights = __webpack_require__(103).displayFlights;
 	var displayHotels = __webpack_require__(103).displayHotels;
 	
+	var Hotel = __webpack_require__(104);
+	
 	var correctDate = function(date){
 	  var correctedDate = moment(date, "YYYY MM DD");
 	  return moment(correctedDate).format("DD" + "-" + "MM" +"-" + "YYYY");
@@ -57,22 +59,21 @@
 	
 	window.onload = function(){
 	
-	  var placeholderDepart = moment();
-	  var placeholderArrival = moment().add(1, "days");
+	  // var placeholderDepart = moment();
+	  // var placeholderArrival = moment().add(1, "days");
 	
-	  var userInput = {
-	    tripOrigin: "",
-	    tripDestination: "",
-	    departDate: correctDate(placeholderDepart),
-	    returnDate: correctDate(placeholderArrival)
-	  }
+	  // var userInput = {
+	  //   tripOrigin: "",
+	  //   tripDestination: "",
+	  //   departDate: correctDate(placeholderDepart),
+	  //   returnDate: correctDate(placeholderArrival)
+	  // }
 	
-	  var currentSearch = new SearchResults();
-	  currentSearch.updateUserInput(userInput);
-	  var lengthOfStay = currentSearch.lengthOfStay();
+	  // var currentSearch = new SearchResults();
+	  // currentSearch.updateUserInput(userInput);
 	
-	  displayFlights(sampleData.flights);
-	  displayHotels(sampleData.hotels, lengthOfStay);
+	  // displayFlights(sampleData.flights);
+	  // displayHotels(sampleData.hotels);
 	
 	  var button = document.getElementById('searchButton');
 	
@@ -93,13 +94,13 @@
 	    var currentSearch = new SearchResults();
 	    currentSearch.updateUserInput(userInput);
 	    
-	    var lengthOfStay = currentSearch.lengthOfStay();
+	    // var lengthOfStay = currentSearch.lengthOfStay();
 	
 	    var matchedFlights = currentSearch.matchingFlights();
 	    displayFlights(currentSearch.flights);
 	
 	    var matchedHotels = currentSearch.matchingHotels();
-	    displayHotels(currentSearch.hotels, lengthOfStay);
+	    displayHotels(currentSearch.hotels);
 	  }
 	};
 
@@ -271,6 +272,8 @@
 	var _ = __webpack_require__(3);
 	var sampleData = __webpack_require__(1);
 	var moment = __webpack_require__(5);
+	var Hotel = __webpack_require__(104);
+	
 	
 	var SearchResults = function(){
 	  // this.searchType = "";
@@ -312,16 +315,13 @@
 	    this.hotels = [];
 	    for(hotel of sampleData.hotels){
 	      if(hotel.address.city === this.userInput.tripDestination){
-	        this.addHotel(hotel);
+	        newHotel = new Hotel(hotel);
+	        newHotel.calculateStay(this.userInput);
+	        newHotel.calculatePrice();
+	        console.log(newHotel);
+	        this.addHotel(newHotel);
 	      }
 	    }
-	  },
-	
-	  lengthOfStay: function(){
-	    var checkIn = moment(this.userInput.departDate, "DD MM YYYY");
-	    var checkOut = moment(this.userInput.returnDate, "DD MM YYYY");
-	    var lengthOfStay = checkOut.diff(checkIn, "days");
-	    return lengthOfStay;
 	  }
 	};
 	
@@ -27891,11 +27891,7 @@
 	var sampleData = __webpack_require__(1);
 	var SearchResults = __webpack_require__(2);
 	
-	var priceOfStay = function(nights, price){
-	  var nights = nights;
-	  var price = price;
-	  return (nights * price);
-	};
+	var Hotel = __webpack_require__(104);
 	
 	var displayFlights = function(object){
 	  var flightsUl = document.getElementById("allFlights");
@@ -27920,14 +27916,14 @@
 	    }
 	  };
 	
-	  var displayHotels = function(object, lengthOfStay){
+	  var displayHotels = function(object){
 	    var hotelsUl = document.getElementById("allHotels");
 	    hotelsUl.innerHTML = "";
 	
 	    for(hotel of object){
 	
 	      var hotelsDisplay = document.createElement("li");
-	      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + priceOfStay(lengthOfStay, hotel.pricePerPerson) + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
+	      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + hotel.totalCost + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
 	
 	      hotelsUl.appendChild(hotelsDisplay);
 	    }
@@ -27943,6 +27939,38 @@
 	// }
 	
 	module.exports = {displayFlights: displayFlights, displayHotels: displayHotels}
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(3);
+	var sampleData = __webpack_require__(1);
+	var moment = __webpack_require__(5);
+	
+	var Hotel = function(hotel){
+	  this.name = hotel.name;
+	  this.pricePerPerson = hotel.pricePerPerson;
+	  this.rooms = hotel.rooms;
+	  this.stars = hotel.stars;
+	  this.address = hotel.address;
+	  this.lengthOfStay = 0;
+	  this.totalCost = 0;
+	};
+	
+	Hotel.prototype = {
+	  calculatePrice: function(){
+	    this.totalCost = (this.lengthOfStay * this.pricePerPerson);
+	  },
+	
+	  calculateStay: function(search){
+	    var checkIn = moment(search.departDate, "DD MM YYYY");
+	    var checkOut = moment(search.returnDate, "DD MM YYYY");
+	    this.lengthOfStay = checkOut.diff(checkIn, "days");
+	  }
+	};
+	
+	module.exports = Hotel;
 
 /***/ }
 /******/ ]);

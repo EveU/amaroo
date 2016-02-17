@@ -1,6 +1,8 @@
 var _ = require('lodash');
 var sampleData = require('./../sample');
 var moment = require('moment');
+var Hotel = require('./hotel');
+
 
 var SearchResults = function(){
   // this.searchType = "";
@@ -42,16 +44,13 @@ SearchResults.prototype = {
     this.hotels = [];
     for(hotel of sampleData.hotels){
       if(hotel.address.city === this.userInput.tripDestination){
-        this.addHotel(hotel);
+        newHotel = new Hotel(hotel);
+        newHotel.calculateStay(this.userInput);
+        newHotel.calculatePrice();
+        console.log(newHotel);
+        this.addHotel(newHotel);
       }
     }
-  },
-
-  lengthOfStay: function(){
-    var checkIn = moment(this.userInput.departDate, "DD MM YYYY");
-    var checkOut = moment(this.userInput.returnDate, "DD MM YYYY");
-    var lengthOfStay = checkOut.diff(checkIn, "days");
-    return lengthOfStay;
   }
 };
 

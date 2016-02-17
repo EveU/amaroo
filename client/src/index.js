@@ -4,6 +4,8 @@ var moment = require('moment');
 var displayFlights = require('./views/defaultView').displayFlights;
 var displayHotels = require('./views/defaultView').displayHotels;
 
+var Hotel = require('./models/hotel');
+
 var correctDate = function(date){
   var correctedDate = moment(date, "YYYY MM DD");
   return moment(correctedDate).format("DD" + "-" + "MM" +"-" + "YYYY");
@@ -11,22 +13,21 @@ var correctDate = function(date){
 
 window.onload = function(){
 
-  var placeholderDepart = moment();
-  var placeholderArrival = moment().add(1, "days");
+  // var placeholderDepart = moment();
+  // var placeholderArrival = moment().add(1, "days");
 
-  var userInput = {
-    tripOrigin: "",
-    tripDestination: "",
-    departDate: correctDate(placeholderDepart),
-    returnDate: correctDate(placeholderArrival)
-  }
+  // var userInput = {
+  //   tripOrigin: "",
+  //   tripDestination: "",
+  //   departDate: correctDate(placeholderDepart),
+  //   returnDate: correctDate(placeholderArrival)
+  // }
 
-  var currentSearch = new SearchResults();
-  currentSearch.updateUserInput(userInput);
-  var lengthOfStay = currentSearch.lengthOfStay();
+  // var currentSearch = new SearchResults();
+  // currentSearch.updateUserInput(userInput);
 
-  displayFlights(sampleData.flights);
-  displayHotels(sampleData.hotels, lengthOfStay);
+  // displayFlights(sampleData.flights);
+  // displayHotels(sampleData.hotels);
 
   var button = document.getElementById('searchButton');
 
@@ -47,12 +48,12 @@ window.onload = function(){
     var currentSearch = new SearchResults();
     currentSearch.updateUserInput(userInput);
     
-    var lengthOfStay = currentSearch.lengthOfStay();
+    // var lengthOfStay = currentSearch.lengthOfStay();
 
     var matchedFlights = currentSearch.matchingFlights();
     displayFlights(currentSearch.flights);
 
     var matchedHotels = currentSearch.matchingHotels();
-    displayHotels(currentSearch.hotels, lengthOfStay);
+    displayHotels(currentSearch.hotels);
   }
 };

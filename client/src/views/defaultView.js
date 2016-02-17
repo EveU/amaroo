@@ -2,11 +2,7 @@ var _ = require('lodash');
 var sampleData = require('./../sample');
 var SearchResults = require("./../models/SearchResults");
 
-var priceOfStay = function(nights, price){
-  var nights = nights;
-  var price = price;
-  return (nights * price);
-};
+var Hotel = require('../models/hotel');
 
 var displayFlights = function(object){
   var flightsUl = document.getElementById("allFlights");
@@ -31,14 +27,14 @@ var displayFlights = function(object){
     }
   };
 
-  var displayHotels = function(object, lengthOfStay){
+  var displayHotels = function(object){
     var hotelsUl = document.getElementById("allHotels");
     hotelsUl.innerHTML = "";
 
     for(hotel of object){
 
       var hotelsDisplay = document.createElement("li");
-      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + priceOfStay(lengthOfStay, hotel.pricePerPerson) + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
+      hotelsDisplay.innerHTML = "<b>" + hotel.name + " – " + hotel.address.city + "</b><br>Price for your stay: £" + hotel.totalCost + "<br>Number of Rooms: " + hotel.rooms + "<br>Rating: " + hotel.stars + " Stars";
 
       hotelsUl.appendChild(hotelsDisplay);
     }
