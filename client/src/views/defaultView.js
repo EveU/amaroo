@@ -83,8 +83,7 @@ DefaultView.prototype = {
   },
 
   displayPackages: function(packages){
-    this.clearFlightDisplay();
-    this.clearHotelDisplay();
+    this.clearAll();
     this.packagesDisplay.style.display = "block";
 
     var packagesUl = document.getElementById("allPackages");
