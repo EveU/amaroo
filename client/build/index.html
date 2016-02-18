@@ -1,16 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Project 2</title>
+  <title>Amaroo | Fly - Stay - Explore</title>
   <script src='bundle.js'></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <h1>Flightr</h1>
-  <div id="allFlights">
-    <h3>Flights</h1>
-  </div>
-  <div id="allHotels">
-    <h3>Hotels</h1>
+ <div class="container">
+  <a href=""><h1>amaroo.com</h1></a>
+  <div>
+    
+    <form>
+      <ul class="formList">
+        
+        <li><label class= "formTitle">Leaving From</label>
+        <input type="text" id="leavingFrom" size="30" placeholder="Airport or City"></input></li>
+        <br> 
+        <li><label class= "formTitle">Going To</label>
+        <input type="text" id="goingTo" size="30" placeholder="Airport or City"></input></li>
+        <br>  
+        <li><label class= "formTitle">Departure Date</label>
+        <input type="date" id="departureDate" size="30"></input></li>
+        <br>
+        <li><label class="formTitle">Return Date</label>
+        <input type="date" id="returnDate" size="30"></input></li>
+      <!-- <label class= "formTitle">Adults
+        <input type="text" id="Adults" size="10" placeholder="1"> 
+        <label class= "formTitle">Children
+          <input type="text" id="Children" size="10" placeholder="1"> -->
+          <li><input type="button" id="searchButton" value="Submit"></li>
+      </ul>
+      </div>
+    </form> 
+    <div id="flights">
+      <h2 class="grid grid-12">Flights</h2>
+      <ul class="displayInfo" id="allFlights">
+      </ul>
+    </div>
+    <div id="hotels">
+      <h2 class="grid grid-12">Hotels</h2>
+      <ul class="displayInfo" id="allHotels">
+      </ul>
+    </div>
+    <div id="packages">
+      <h2 class="grid grid-12">Packages</h2>
+      <ul class="displayInfo" id="allPackages">
+      </ul>
+    </div>
+    <div id="packageDetails">
+      <h3 id="packageHeader"></h3>
+      <ul>
+        <li id="packageFlight"></li>
+        <li id="packageHotel"></li>
+      </ul>
+    </div>
   </div>
 </body>
 </html>
