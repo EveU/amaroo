@@ -40,7 +40,7 @@ SearchResults.prototype = {
         this.addFlight(new Flight(flight));
       }
     }
-    return this.flights;
+    this.orderFlightsByPrice();
   },
 
   matchingHotels: function(){
@@ -53,6 +53,7 @@ SearchResults.prototype = {
         this.addHotel(newHotel);
       }
     }
+    this.orderHotelsByPrice();
   },
 
   matchingPackages: function(){
@@ -63,6 +64,19 @@ SearchResults.prototype = {
         this.packages.push(package);
       }
     }
+    this.orderPackagesByPrice();
+  },
+
+  orderFlightsByPrice: function(){
+    this.flights = _.orderBy(this.flights, ['price'], ['asc']);
+  },
+
+  orderHotelsByPrice: function(){
+    this.hotels = _.orderBy(this.hotels, ['totalCost'], ['asc']);
+  },
+
+  orderPackagesByPrice: function(){
+    this.packages = _.orderBy(this.packages, ['price'], ['asc']);
   }
 };
 
