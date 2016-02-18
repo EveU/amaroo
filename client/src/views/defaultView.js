@@ -84,7 +84,7 @@ DefaultView.prototype = {
     var packagesUl = document.getElementById("allPackages");
     this.packagesUl.innerHTML = "";
 
-    if(flights.length > 0){
+    if(packages.length > 0){
       for(i=0; i<packages.length; i++){
         var packagesDisplay = document.createElement("li");
         packagesDisplay.innerHTML = "<h2>" + packages[i].flight.departure + " - " + packages[i].flight.arrival + "</h2><h3>" + packages[i].hotel.name + "</h3><img src='../images/" + packages[i].hotel.stars + "star.png'/><h1>£" + packages[i].price + "</h1><button class='link' value=" + i +" >Click for full details</button>"
@@ -93,7 +93,9 @@ DefaultView.prototype = {
       }
     }
     else {
-      this.packagesUl.innerHTML = "No matching packages.";
+      var packagesDisplay = document.createElement("li");
+      packagesDisplay.innerHTML = "No matching packages.";
+      this.packagesUl.appendChild(packagesDisplay);
     }
   },
 
