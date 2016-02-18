@@ -17,8 +17,11 @@ var correctDate = function(date){
 window.onload = function(){
 
   var defaultView = new DefaultView(document);
-  defaultView.displayFlights(sampleData.flights);
-  defaultView.displayHotels(sampleData.hotels);
+  var flights = _.orderBy(sampleData.flights, ['price'], ['asc']);
+  var hotels = _.orderBy(sampleData.hotels, ['pricePerPerson'], ['asc']);
+
+  defaultView.displayFlights(flights);
+  defaultView.displayHotels(hotels);
 
   var button = document.getElementById('searchButton');
   button.onclick = function(){
