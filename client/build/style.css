@@ -1,18 +1,18 @@
-img {
-  max-height: 30px;
-}
-
 body {
-	background-image: url("../images/ulurusun.jpg");
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+  background-image: url("../images/ulurusun.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: 100%, 100%;
   font-family: 'Merienda', cursive;
 }
 
+a {
+  text-decoration: none;
+}
+
 h1 {
-	color: white;
-	text-shadow: 2px 1px black;
+  color: white;
+  text-shadow: 2px 1px black;
   margin-left: 25px;
 }
 
@@ -76,9 +76,17 @@ a:visited {
   box-shadow: 5px 5px 15px white;
 }
 
+.displayInfo h1, #packageDetails h1 {
+  margin-left: 0;
+}
+
 #packageDetails {
   width: 35%;
   margin: auto;
+}
+
+img {
+  max-height: 30px;
 }
 
 /* GRID FRAMEWORK */
